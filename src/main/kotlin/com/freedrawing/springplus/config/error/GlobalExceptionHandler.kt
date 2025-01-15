@@ -4,7 +4,6 @@ import com.freedrawing.springplus.config.util.LoggerUtil
 import com.freedrawing.springplus.domain.common.exception.BaseException
 import lombok.extern.slf4j.Slf4j
 import org.springframework.http.ResponseEntity
-import org.springframework.validation.FieldError
 import org.springframework.web.HttpRequestMethodNotSupportedException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
@@ -15,9 +14,7 @@ import java.util.stream.Collectors
 @ControllerAdvice
 class GlobalExceptionHandler {
 
-    /**
-     * 이 예외는 validation 전용 예외라서 비즈니스 예외 처리 클래스에 있는 게 조금 안 어울리기는 함. 크기가 커지면 따로 빼서 관리
-     */
+
     @ExceptionHandler(MethodArgumentNotValidException::class)
     protected fun handleMethodArgumentNotValidException(e: MethodArgumentNotValidException): ResponseEntity<ErrorResponse> {
 
@@ -25,14 +22,10 @@ class GlobalExceptionHandler {
 
         val errorMessages = e.bindingResult.fieldErrors
             .stream()
-            .map { error: FieldError -> String.format("%s: %s", error.field, error.defaultMessage) }
+            .map { String.format("%s: %s", it.field, it.defaultMessage) }
             .collect(Collectors.joining("\n"))
 
-        val errorResponse = ErrorResponse.of(ErrorCode.INVALID_REQUEST, errorMessages)
-
-        return ResponseEntity
-            .badRequest()
-            .body(errorResponse)
+        return createErrorResponseEntity(ErrorCode.INTERNAL_SERVER_ERROR, errorMessages)
     }
 
     // 잘못된 HttpMethod 요청 왔을 때 (컨트롤러에서 정의되지 않은 Http 메서드 요청할 때)
@@ -46,7 +39,7 @@ class GlobalExceptionHandler {
     @ExceptionHandler(BaseException::class)
     protected fun handleBusinessBaseException(e: BaseException): ResponseEntity<ErrorResponse> {
         LoggerUtil.log.error("BusinessBaseException", e)
-        return createErrorResponseEntity(e.errorCode)
+        return createErrorResponseEntity(e.errorCode, e.message)
     }
 
     // 500 서버 에러 정도만 여기서 걸림
@@ -56,7 +49,15 @@ class GlobalExceptionHandler {
         return createErrorResponseEntity(ErrorCode.INTERNAL_SERVER_ERROR)
     }
 
-    private fun createErrorResponseEntity(errorCode: ErrorCode): ResponseEntity<ErrorResponse> {
-        return ResponseEntity(ErrorResponse.of(errorCode), errorCode.status)
+    private fun createErrorResponseEntity(
+        errorCode: ErrorCode,
+        message: String? = null
+    ): ResponseEntity<ErrorResponse> {
+
+        val errorResponse =
+            if (message.isNullOrEmpty()) ErrorResponse.of(errorCode)
+            else ErrorResponse.of(errorCode, message)
+
+        return ResponseEntity(errorResponse, errorCode.status)
     }
 }

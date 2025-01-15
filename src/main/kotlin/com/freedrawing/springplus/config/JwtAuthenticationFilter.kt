@@ -41,13 +41,13 @@ class JwtAuthenticationFilter(
         filterChain.doFilter(httpServletRequest, httpServletResponse)
     }
 
-    private fun validateToken(accessToken: String) {
+    private fun validateToken(accessToken: String?) {
         if (hasText(accessToken).not()) {
             LoggerUtil.log.error("Missing JWT token. Sending error response")
             throw NotFoundException(ErrorCode.TOKEN_NOT_FOUND)
         }
 
-        tokenProvider.validateToken(accessToken)
+        tokenProvider.validateToken(accessToken!!)
     }
 
 }

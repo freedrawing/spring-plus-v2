@@ -4,8 +4,7 @@ import org.springframework.util.PatternMatchUtils
 
 object Url {
     private val WHITE_LIST: Array<String> = arrayOf(
-        "/signup", "/signup/**", "/login",
-        "/oauth/**", "/*.ico", "/refresh-token"
+        "/auth/**"
     )
 
     fun isIncludedInWhiteList(requestUrl: String?): Boolean {

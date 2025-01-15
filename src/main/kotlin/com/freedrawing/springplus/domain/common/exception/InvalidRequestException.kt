@@ -7,4 +7,6 @@ open class InvalidRequestException : BaseException {
     constructor() : super(ErrorCode.INVALID_REQUEST)
 
     constructor(errorCode: ErrorCode) : super(errorCode)
+
+    constructor(message: String): super(message, ErrorCode.INVALID_REQUEST)
 }

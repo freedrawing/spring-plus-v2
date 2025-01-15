@@ -16,7 +16,7 @@ class AuthUserArgumentResolver : HandlerMethodArgumentResolver {
 
     override fun supportsParameter(parameter: MethodParameter): Boolean {
         val hasValidAnnotation = parameter.getParameterAnnotation(Authentication::class.java) != null
-        val withValidParameterType = parameter.parameterType.equals(UserPrincipal::class)
+        val withValidParameterType = parameter.parameterType == UserPrincipal::class.java
 
         // `@Authentication` should be used with `UserPrincipal`
         if (hasValidAnnotation.not() || withValidParameterType.not()) {

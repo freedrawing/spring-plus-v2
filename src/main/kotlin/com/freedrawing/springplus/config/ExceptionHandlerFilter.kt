@@ -25,9 +25,10 @@ class ExceptionHandlerFilter(
             filterChain.doFilter(request, response)
         } catch (e: BaseException) {
             sendErrorResponse(httpServletResponse, e.errorCode, e.message!!)
+            LoggerUtil.log.error("error={}", e)
         } catch (e: Exception) {
             sendErrorResponse(httpServletResponse, INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR.message)
-            LoggerUtil.log.error("error")
+            LoggerUtil.log.error("error={}", e)
         }
     }
 
