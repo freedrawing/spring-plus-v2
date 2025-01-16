@@ -17,7 +17,7 @@ class UserTest {
 
     @Test
     fun createUserTest() {
-        val user = User(email = "user@email.com", role = Role.USER, password = "1234")
+        val user = User(email = "user@email.com", role = Role.USER, nickname = "hello", password = "1234")
 
         entityManager.persist(user)
 

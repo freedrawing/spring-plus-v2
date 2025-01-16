@@ -31,7 +31,7 @@ class TokenProvider(private val jwtProperties: JwtProperties) {
             .setIssuedAt(Date())
             .setExpiration(expiration)
             .setSubject(user.id.toString())
-            .claim("email", user.email)
+            .claim("nickname", user.nickname)
             .claim("role", user.role) // `accessToken`에만 `Role 포함
             .claim("tokenType", ACCESS_TOKEN_TYPE)
             .signWith(SignatureAlgorithm.HS256, jwtProperties.secretKey)
@@ -90,12 +90,12 @@ class TokenProvider(private val jwtProperties: JwtProperties) {
         }
     }
 
-    fun getEmailFrom(token: String): String {
+    fun getNicknameFrom(token: String): String {
         try {
             val claims = getClaims(token)
-            val email = claims.get("email", String::class.java)
+            val nickname = claims.get("nickname", String::class.java)
 
-            return email
+            return nickname
         } catch (e: Exception) {
             throw InvalidTokenException()
         }

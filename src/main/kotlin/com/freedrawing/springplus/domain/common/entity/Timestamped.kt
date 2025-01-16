@@ -13,10 +13,12 @@ abstract class Timestamped protected constructor() {
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = false, updatable = false)
-    protected lateinit var createdAt: LocalDateTime
+    lateinit var createdAt: LocalDateTime
+        protected set
 
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at", nullable = false)
-    protected lateinit var updatedAt: LocalDateTime
+    lateinit var updatedAt: LocalDateTime
+        protected set
 }

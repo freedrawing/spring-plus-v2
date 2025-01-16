@@ -8,6 +8,7 @@ import jakarta.persistence.*
 class User(
     email: String,
     password: String,
+    nickname: String,
     role: Role
 ) : Timestamped() {
 
@@ -19,6 +20,10 @@ class User(
 
     @Column(name = "email", updatable = false, nullable = false, unique = true)
     var email: String = email
+        protected set
+
+    @Column(name = "nickname", nullable = false)
+    var nickname: String = nickname
         protected set
 
     @Column(name = "password", nullable = false)
@@ -37,6 +42,4 @@ class User(
     fun changeRole(newRole: Role) {
         this.role = newRole
     }
-
-
 }

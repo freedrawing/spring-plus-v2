@@ -12,7 +12,7 @@ import org.springframework.web.context.request.NativeWebRequest
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.method.support.ModelAndViewContainer
 
-class AuthUserArgumentResolver : HandlerMethodArgumentResolver {
+class AuthenticationArgumentResolver : HandlerMethodArgumentResolver {
 
     override fun supportsParameter(parameter: MethodParameter): Boolean {
         val hasValidAnnotation = parameter.getParameterAnnotation(Authentication::class.java) != null
@@ -35,10 +35,10 @@ class AuthUserArgumentResolver : HandlerMethodArgumentResolver {
         val request = webRequest.nativeRequest as HttpServletRequest
 
         val userId = request.getAttribute("userId") as Long
-        val email = request.getAttribute("email").toString()
+        val nickname = request.getAttribute("nickname").toString()
         val role = Role.of(request.getAttribute("role").toString())
 
-        return UserPrincipal.fromRequest(userId = userId, email = email, role = role)
+        return UserPrincipal.fromRequest(userId = userId, nickname = nickname, role = role)
     }
 
 }

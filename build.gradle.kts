@@ -6,7 +6,6 @@ plugins {
     id("org.jetbrains.kotlin.kapt") version "2.0.0" //  Kotlin Annotation Processing Tool (KAPT)을 활성화하여 QueryDSL 및 Lombok과 같은 APT 기반 도구 사용 가능.
     kotlin("plugin.noarg") version "2.1.0" // JPA 엔티티에서 기본 생성자를 요구할 때 사용
     kotlin("plugin.allopen") version "2.1.0" // 특정 애노테이션을 사용해 클래스와 메서드를 자동으로 open 상태로 변경.
-
 }
 
 group = "com.freedrawing" // 프로젝트의 그룹 ID. 배포 시 식별에 사용.

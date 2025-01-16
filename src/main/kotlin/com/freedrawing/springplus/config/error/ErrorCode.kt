@@ -35,6 +35,9 @@ enum class ErrorCode(
     TOKEN_NOT_FOUND(HttpStatus.NOT_FOUND, "TOKEN_404", "존재하지 않는 토큰입니다."),
     TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, "TOKEN_401", "만료된 토큰입니다."),
 
+    // Todo
+    TODO_NOT_FOUND(HttpStatus.NOT_FOUND, "TODO_404", "존재하지 않는 일정입니다."),
+
     // Comment
     COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "COMMENT_404", "존재하지 않는 댓글입니다."),
     COMMENT_ACCESS_DENIED(HttpStatus.FORBIDDEN, "COMMENT_403", "해당 댓글에 대한 접근 권한이 없습니다."),
@@ -42,9 +45,4 @@ enum class ErrorCode(
 
     ;
 
-    companion object {
-        fun fromCode(code: String): ErrorCode? {
-            return values().find { it.code == code }
-        }
-    }
 }

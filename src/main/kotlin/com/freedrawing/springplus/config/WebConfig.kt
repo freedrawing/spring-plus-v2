@@ -14,7 +14,7 @@ class WebConfig(
 ) : WebMvcConfigurer {
 
     override fun addArgumentResolvers(resolvers: MutableList<HandlerMethodArgumentResolver>) {
-        resolvers.add(AuthUserArgumentResolver())
+        resolvers.add(AuthenticationArgumentResolver())
     }
 
     @Bean

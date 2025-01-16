@@ -31,11 +31,11 @@ class JwtAuthenticationFilter(
         validateToken(accessToken)
 
         val userId = tokenProvider.getUserIdFrom(accessToken)
-        val email = tokenProvider.getEmailFrom(accessToken)
+        val nickname = tokenProvider.getNicknameFrom(accessToken)
         val role = tokenProvider.getRoleFrom(accessToken)
 
         httpServletRequest.setAttribute("userId", userId)
-        httpServletRequest.setAttribute("email", email)
+        httpServletRequest.setAttribute("nickname", nickname)
         httpServletRequest.setAttribute("role", role)
 
         filterChain.doFilter(httpServletRequest, httpServletResponse)

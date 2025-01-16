@@ -6,11 +6,12 @@ import com.freedrawing.springplus.domain.user.User
 data class UserResponseDto(
     val userId: Long,
     val email: String,
+    val nickname: String,
     val role: Role
 ) {
     companion object {
         fun fromEntity(user: User): UserResponseDto {
-            return UserResponseDto(user.id!!, user.email, user.role)
+            return UserResponseDto(user.id!!, user.email, user.nickname, user.role)
         }
     }
 }

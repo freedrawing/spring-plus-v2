@@ -13,5 +13,8 @@ data class SignupRequestDto(
     val password: String,
 
     @field:NotBlank
+    val nickname: String,
+
+    @field:NotBlank
     val userRole: String
 )

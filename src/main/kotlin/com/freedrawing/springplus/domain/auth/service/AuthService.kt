@@ -37,6 +37,7 @@ class AuthService(
             User(
                 email = requestDto.email,
                 password = passwordEncoder.encode(requestDto.password),
+                nickname = requestDto.nickname,
                 role = Role.of(requestDto.userRole)
             )
         )
