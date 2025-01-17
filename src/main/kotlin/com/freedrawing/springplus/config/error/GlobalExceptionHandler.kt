@@ -4,11 +4,14 @@ import com.freedrawing.springplus.config.util.LoggerUtil
 import com.freedrawing.springplus.domain.common.exception.BaseException
 import lombok.extern.slf4j.Slf4j
 import org.springframework.http.ResponseEntity
+import org.springframework.http.converter.HttpMessageConversionException
 import org.springframework.web.HttpRequestMethodNotSupportedException
 import org.springframework.web.bind.MethodArgumentNotValidException
+import org.springframework.web.bind.MissingRequestValueException
 import org.springframework.web.bind.MissingServletRequestParameterException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException
 import java.util.stream.Collectors
 
 @Slf4j
@@ -33,6 +36,17 @@ class GlobalExceptionHandler {
     protected fun handleHttpRequestMethodNotSupportedException(e: HttpRequestMethodNotSupportedException): ResponseEntity<ErrorResponse> {
         LoggerUtil.log.error("HttpRequestMethodNotSupportedException", e)
         return createErrorResponseEntity(ErrorCode.METHOD_NOT_ALLOWED)
+    }
+
+    // 파라미터, 혹은, Body에 잘못된 값이 들어왔을 때
+    @ExceptionHandler(
+        MethodArgumentTypeMismatchException::class,
+        HttpMessageConversionException::class,
+        MissingRequestValueException::class
+    )
+    protected fun handleInvalidInputException(e: RuntimeException): ResponseEntity<ErrorResponse> {
+        LoggerUtil.log.error("Invalid Input Exception", e)
+        return createErrorResponseEntity(ErrorCode.INVALID_REQUEST)
     }
 
     // Business Exception(대부분 여기서 걸림)
