@@ -2,6 +2,7 @@ package com.freedrawing.springplus.domain.todo.repository
 
 import com.freedrawing.springplus.domain.todo.dto.response.TodoResponseDto
 import com.freedrawing.springplus.domain.todo.entity.QTodo.todo
+import com.freedrawing.springplus.domain.todo.entity.Todo
 import com.freedrawing.springplus.domain.user.QUser.user
 import com.freedrawing.springplus.domain.user.dto.response.UserResponseDto
 import com.querydsl.core.types.Projections
@@ -29,7 +30,8 @@ class TodoRepositoryImpl(entityManager: EntityManager) : TodoRepositoryCustom {
                         user.id,
                         user.email,
                         user.nickname,
-                        user.role
+                        user.role,
+                        user.profileImgUrl
                     ),
                     todo.createdAt,
                     todo.updatedAt
@@ -49,6 +51,16 @@ class TodoRepositoryImpl(entityManager: EntityManager) : TodoRepositoryCustom {
         return PageableExecutionUtils.getPage(content, pageable) {
             countQuery.fetchOne() ?: 0L
         }
+    }
+
+//    @Query("select t from Todo t join fetch t.user where t.id = :todoId")
+//    fun findByIdWithUser(@Param("todoId") todoId: Long): Todo?
+    override fun findByIdWithUser(todoId: Long): Todo? {
+        return queryFactory
+            .selectFrom(todo)
+            .join(todo.user, user).fetchJoin()
+            .where(todo.id.eq(todoId))
+            .fetchFirst()
     }
 
 

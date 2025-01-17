@@ -9,18 +9,18 @@ data class TodoResponseDto(
     val title: String,
     val content: String,
     val weather: String,
-    val userResponse: UserResponseDto,
+    val owner: UserResponseDto?,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime
 ) {
     companion object {
-        fun from(todo: Todo, userResponseDto: UserResponseDto): TodoResponseDto {
+        fun from(todo: Todo, userResponseDto: UserResponseDto? = null): TodoResponseDto {
             return TodoResponseDto(
                 todoId = todo.id!!,
                 title = todo.title,
                 content = todo.content,
                 weather = todo.weather,
-                userResponse = userResponseDto,
+                owner = userResponseDto,
                 createdAt = todo.createdAt,
                 updatedAt = todo.updatedAt
             )

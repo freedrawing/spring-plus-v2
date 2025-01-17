@@ -16,5 +16,7 @@ data class SignupRequestDto(
     val nickname: String,
 
     @field:NotBlank
-    val userRole: String
+    val userRole: String,
+
+    val profileImgUrl: String?
 )

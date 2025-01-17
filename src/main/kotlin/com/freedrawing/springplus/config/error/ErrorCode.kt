@@ -22,9 +22,9 @@ enum class ErrorCode(
     INVALID_ROLE(HttpStatus.BAD_REQUEST, "ROLE_400", "유효하지 않은 권한입니다."),
 
     // User
-    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "USER_404", "존재하지 않는 유저입니다."),
-    USER_DELETED(HttpStatus.FORBIDDEN, "USER_403", "삭제된 유저입니다."),
-    USER_ALREADY_EXISTS(HttpStatus.CONFLICT, "USER_409", "이미 존재하는 유저입니다."),
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "USER_404", "존재하지 않는 사용자입니다."),
+    USER_DELETED(HttpStatus.FORBIDDEN, "USER_403", "삭제된 사용자입니다."),
+    USER_ALREADY_EXISTS(HttpStatus.CONFLICT, "USER_409", "이미 존재하는 사용자입니다."),
 
     // Authentication
     AUTHENTICATION_FAILURE(HttpStatus.UNAUTHORIZED, "AUTHENTICATION_401", "인증에 실패했습니다."),
@@ -37,6 +37,12 @@ enum class ErrorCode(
 
     // Todo
     TODO_NOT_FOUND(HttpStatus.NOT_FOUND, "TODO_404", "존재하지 않는 일정입니다."),
+    TODO_ACCESS_DENIED(HttpStatus.FORBIDDEN, "TODO_403", "해당 일정에 대한 접근 권한이 없습니다."),
+
+    // TodoManagement
+    TODO_MANAGEMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "TODO_MANAGEMENT_404", "존재하지 않는 일정 관리입니다."),
+    TODO_MANAGEMENT_ACCESS_DENIED(HttpStatus.FORBIDDEN, "TODO_MANAGEMENT_403", "해당 일정 관리에 대한 접근 권한이 없습니다."),
+    TODO_MANAGEMENT_ALREADY_EXISTS(HttpStatus.CONFLICT, "TODO_MANAGEMENT_409", "이미 동일 매니저가 할당되어 있습니다."),
 
     // Comment
     COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "COMMENT_404", "존재하지 않는 댓글입니다."),

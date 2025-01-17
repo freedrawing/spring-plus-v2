@@ -34,7 +34,7 @@ class AdminAccessAspect {
         }
 
         if (userPrincipal.role.isAdmin().not()) {
-            throw AccessDeniedException()
+            throw AccessDeniedException("Admin 계정만 접근할 수 있습니다.")
         }
 
     }

@@ -1,6 +1,5 @@
 package com.freedrawing.springplus.domain.auth.controller
 
-import com.freedrawing.springplus.config.util.LoggerUtil
 import com.freedrawing.springplus.domain.auth.dto.reponse.SigninResponseDto
 import com.freedrawing.springplus.domain.auth.dto.reponse.SignupResponseDto
 import com.freedrawing.springplus.domain.auth.dto.request.SigninRequestDto

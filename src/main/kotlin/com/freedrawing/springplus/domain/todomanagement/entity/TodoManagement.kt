@@ -1,4 +1,4 @@
-package com.freedrawing.springplus.domain.manager.entity
+package com.freedrawing.springplus.domain.todomanagement.entity
 
 import com.freedrawing.springplus.domain.common.entity.Timestamped
 import com.freedrawing.springplus.domain.todo.entity.Todo
@@ -6,9 +6,9 @@ import com.freedrawing.springplus.domain.user.User
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "manager")
-class Manager(
-    user: User,
+@Table(name = "todo_management")
+class TodoManagement(
+    manager: User,
     todo: Todo
 ) : Timestamped() {
 
@@ -20,11 +20,10 @@ class Manager(
 
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
     @ManyToOne(fetch = FetchType.LAZY)
-    val user: User = user // 일정을 만든 사람
+    val manager: User = manager // 일정을 만든 사람
 
     @JoinColumn(name = "todo_id", nullable = false, updatable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     val todo: Todo = todo
-
 
 }

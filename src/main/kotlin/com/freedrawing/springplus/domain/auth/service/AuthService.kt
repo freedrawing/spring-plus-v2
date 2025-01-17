@@ -12,7 +12,6 @@ import com.freedrawing.springplus.domain.auth.exception.AuthenticationException
 import com.freedrawing.springplus.domain.common.exception.EntityAlreadyExistsException
 import com.freedrawing.springplus.domain.user.Role
 import com.freedrawing.springplus.domain.user.User
-import com.freedrawing.springplus.domain.user.annotation.AdminOnly
 import com.freedrawing.springplus.domain.user.repository.UserRepository
 import com.freedrawing.springplus.domain.user.service.UserService
 import org.springframework.stereotype.Service
@@ -38,7 +37,8 @@ class AuthService(
                 email = requestDto.email,
                 password = passwordEncoder.encode(requestDto.password),
                 nickname = requestDto.nickname,
-                role = Role.of(requestDto.userRole)
+                role = Role.of(requestDto.userRole),
+                profileImgUrl = requestDto.profileImgUrl
             )
         )
         return SignupResponseDto.fromEntity(savedUser)

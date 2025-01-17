@@ -45,7 +45,7 @@ class UserController(
     ): ResponseEntity<UserResponseDto> {
 
         val response = userService.changeUserRole(
-            currentUserId = userPrincipal.userId,
+            currentAdminId = userPrincipal.userId,
             targetUserId = userId,
             requestDto = requestDto
         )

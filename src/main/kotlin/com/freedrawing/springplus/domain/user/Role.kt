@@ -5,6 +5,7 @@ import com.freedrawing.springplus.domain.common.exception.InvalidRequestExceptio
 
 enum class Role {
     ADMIN,
+    MANAGER,
     USER,
     ;
 
@@ -17,5 +18,9 @@ enum class Role {
 
     fun isAdmin(): Boolean {
         return this.name.equals(ADMIN.name, ignoreCase = true)
+    }
+
+    fun isManager(): Boolean {
+        return this.name.equals(MANAGER.name, ignoreCase = true)
     }
 }

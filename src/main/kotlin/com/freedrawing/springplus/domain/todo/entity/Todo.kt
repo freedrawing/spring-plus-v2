@@ -1,7 +1,7 @@
 package com.freedrawing.springplus.domain.todo.entity
 
 import com.freedrawing.springplus.domain.common.entity.Timestamped
-import com.freedrawing.springplus.domain.manager.entity.Manager
+import com.freedrawing.springplus.domain.todomanagement.entity.TodoManagement
 import com.freedrawing.springplus.domain.user.User
 import jakarta.persistence.*
 
@@ -38,10 +38,10 @@ class Todo(
     val user: User = user
 
     @OneToMany(mappedBy = "todo")
-    val managers: MutableList<Manager> = mutableListOf()
+    val todoManagements: MutableList<TodoManagement> = mutableListOf()
 
-    fun addManager(manager: Manager) {
-        managers.add(manager)
+    fun addManager(todoManagement: TodoManagement) {
+        todoManagements.add(todoManagement)
     }
 
 }

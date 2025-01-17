@@ -7,11 +7,18 @@ data class UserResponseDto(
     val userId: Long,
     val email: String,
     val nickname: String,
-    val role: Role
+    val role: Role,
+    val profileImgUrl: String?
 ) {
     companion object {
         fun fromEntity(user: User): UserResponseDto {
-            return UserResponseDto(user.id!!, user.email, user.nickname, user.role)
+            return UserResponseDto(
+                userId = user.id!!,
+                email = user.email,
+                nickname = user.nickname,
+                profileImgUrl = user.profileImgUrl,
+                role = user.role
+            )
         }
     }
 }

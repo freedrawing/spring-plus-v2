@@ -36,16 +36,24 @@ class UserService(
         findUser.changePassword(passwordEncoder.encode(requestDto.newPassword))
     }
 
+    /*
+        * admin 계정은 강등 불가
+        * `user <-> manager`만 바뀔 수 있음.
+     */
     @Transactional
-    fun changeUserRole(currentUserId: Long, targetUserId: Long, requestDto: ChangeRoleRequestDto): UserResponseDto {
-        if (currentUserId == targetUserId) { // 본인 `Role`은 본인이 변경 불가
-            throw AccessDeniedException("자기 자신의 권한은 변경할 수 없습니다.")
+    fun changeUserRole(currentAdminId: Long, targetUserId: Long, requestDto: ChangeRoleRequestDto): UserResponseDto {
+        val targetUser = getUserById(targetUserId)
+        val newRole = Role.of(requestDto.newRole)
+
+        // DB를 한 번 타지만 그래도 when으로 처리하는 게 깔끔한 듯
+        when {
+            currentAdminId == targetUserId -> throw AccessDeniedException("자기 자신의 권한은 변경할 수 없습니다.")
+            targetUser.role.isAdmin() -> throw AccessDeniedException("Admin 계정은 권한 변경이 불가합니다.")
+            newRole.isAdmin() -> throw AccessDeniedException("Admin 계정으로 권한 변경은 불가합니다.")
         }
 
-        val findUser = getUserById(targetUserId)
-        findUser.changeRole(Role.of(requestDto.newRole))
-
-        return UserResponseDto.fromEntity(findUser)
+        targetUser.changeRole(newRole)
+        return UserResponseDto.fromEntity(targetUser)
     }
 
     fun getUserById(userId: Long): User {

@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j
 import org.springframework.http.ResponseEntity
 import org.springframework.web.HttpRequestMethodNotSupportedException
 import org.springframework.web.bind.MethodArgumentNotValidException
+import org.springframework.web.bind.MissingServletRequestParameterException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import java.util.stream.Collectors
@@ -13,7 +14,6 @@ import java.util.stream.Collectors
 @Slf4j
 @ControllerAdvice
 class GlobalExceptionHandler {
-
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
     protected fun handleMethodArgumentNotValidException(e: MethodArgumentNotValidException): ResponseEntity<ErrorResponse> {
@@ -25,7 +25,7 @@ class GlobalExceptionHandler {
             .map { String.format("%s: %s", it.field, it.defaultMessage) }
             .collect(Collectors.joining("\n"))
 
-        return createErrorResponseEntity(ErrorCode.INTERNAL_SERVER_ERROR, errorMessages)
+        return createErrorResponseEntity(ErrorCode.INVALID_REQUEST, errorMessages)
     }
 
     // 잘못된 HttpMethod 요청 왔을 때 (컨트롤러에서 정의되지 않은 Http 메서드 요청할 때)

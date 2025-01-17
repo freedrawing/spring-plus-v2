@@ -9,7 +9,8 @@ class User(
     email: String,
     password: String,
     nickname: String,
-    role: Role
+    role: Role,
+    profileImgUrl: String?
 ) : Timestamped() {
 
     @Id
@@ -34,6 +35,9 @@ class User(
     @Column(name = "role", nullable = false)
     var role: Role = role
         protected set
+
+    @Column(name = "profile_img_url")
+    var profileImgUrl: String? = profileImgUrl
 
     fun changePassword(newPassword: String) {
         this.password = newPassword
