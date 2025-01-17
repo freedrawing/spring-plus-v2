@@ -14,6 +14,7 @@ import com.freedrawing.springplus.domain.user.repository.UserRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
+@Transactional(readOnly = true)
 @Service
 class UserService(
     private val userRepository: UserRepository,

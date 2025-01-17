@@ -11,6 +11,7 @@ import com.freedrawing.springplus.domain.user.service.UserService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
+@Transactional(readOnly = true)
 @Service
 class CommentService(
     private val commentRepository: CommentRepository,
