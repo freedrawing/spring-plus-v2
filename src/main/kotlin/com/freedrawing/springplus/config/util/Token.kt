@@ -10,5 +10,6 @@ object Token {
     const val BEARER_PREFIX = "Bearer "
 
     val REFRESH_TOKEN_DURATION: Duration = Duration.ofDays(14)
-    val ACCESS_TOKEN_DURATION: Duration = Duration.ofHours(6)
+//    val ACCESS_TOKEN_DURATION: Duration = Duration.ofHours(6)
+val ACCESS_TOKEN_DURATION: Duration = Duration.ofDays(100)
 }

@@ -43,7 +43,7 @@ class JwtAuthenticationFilter(
 
     private fun validateToken(accessToken: String?) {
         if (hasText(accessToken).not()) {
-            LoggerUtil.log.error("Missing JWT token. Sending error response")
+            LoggerUtil.logger.error { "Missing JWT token. Sending error response" }
             throw NotFoundException(ErrorCode.TOKEN_NOT_FOUND)
         }
 

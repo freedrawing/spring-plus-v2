@@ -1,9 +1,7 @@
 package com.freedrawing.springplus.config.error
 
-import lombok.Getter
 import org.springframework.http.HttpStatus
 
-@Getter
 enum class ErrorCode(
     val status: HttpStatus,
     val code: String,

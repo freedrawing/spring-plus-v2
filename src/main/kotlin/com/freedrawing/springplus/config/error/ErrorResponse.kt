@@ -1,8 +1,5 @@
 package com.freedrawing.springplus.config.error
 
-import lombok.Getter
-
-@Getter
 class ErrorResponse {
 
     val message: String

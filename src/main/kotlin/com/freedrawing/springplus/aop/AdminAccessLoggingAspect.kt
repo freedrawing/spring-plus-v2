@@ -1,7 +1,6 @@
 package com.freedrawing.springplus.aop
 
 import com.freedrawing.springplus.config.util.LoggerUtil
-import jakarta.servlet.http.HttpServletRequest
 import org.aspectj.lang.JoinPoint
 import org.aspectj.lang.annotation.Aspect
 import org.aspectj.lang.annotation.Before
@@ -22,9 +21,15 @@ class AdminAccessLoggingAspect {
         val requestUrl = request.requestURI
         val requestTime = LocalDateTime.now()
 
-        LoggerUtil.log.info(
-            "[Admin Access] User ID: {}, Time: {}, URL: {}, Method: {}",
-            userId, requestTime, requestUrl, joinPoint.signature.name
-        )
+        LoggerUtil.logger.info {
+            "${"[Admin Access] User ID: {}, Time: {}, URL: {}, Method: {}"} ${
+                arrayOf(
+                    userId,
+                    requestTime,
+                    requestUrl,
+                    joinPoint.signature.name
+                )
+            }"
+        }
     }
 }
