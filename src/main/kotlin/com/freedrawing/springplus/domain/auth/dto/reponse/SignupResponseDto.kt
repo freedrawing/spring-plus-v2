@@ -10,14 +10,13 @@ data class SignupResponseDto(
     val profileImgUrl: String?
 ) {
     companion object {
-        fun fromEntity(user: User): SignupResponseDto {
-            return SignupResponseDto(
-                userId = user.id!!,
-                email = user.email,
-                nickname = user.nickname,
-                userRole = user.role.name,
-                profileImgUrl = user.profileImgUrl
-            )
-        }
+        fun fromEntity(user: User): SignupResponseDto = SignupResponseDto(
+            userId = user.id!!,
+            email = user.email,
+            nickname = user.nickname,
+            userRole = user.role.name,
+            profileImgUrl = user.profileImgUrl
+        )
+
     }
 }

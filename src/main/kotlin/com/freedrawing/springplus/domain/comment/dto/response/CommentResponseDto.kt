@@ -15,13 +15,12 @@ data class CommentResponseDto(
             comment: Comment,
             todoResponse: TodoResponseDto,
             writeResponse: UserResponseDto
-        ): CommentResponseDto {
-            return CommentResponseDto(
-                commentId = comment.id!!,
-                content = comment.content,
-                todo = todoResponse,
-                writer = writeResponse
-            )
-        }
+        ) = CommentResponseDto(
+            commentId = comment.id!!,
+            content = comment.content,
+            todo = todoResponse,
+            writer = writeResponse
+        )
+
     }
 }

@@ -14,16 +14,15 @@ data class TodoResponseDto(
     val updatedAt: LocalDateTime
 ) {
     companion object {
-        fun from(todo: Todo, userResponseDto: UserResponseDto? = null): TodoResponseDto {
-            return TodoResponseDto(
-                todoId = todo.id!!,
-                title = todo.title,
-                content = todo.content,
-                weather = todo.weather,
-                owner = userResponseDto,
-                createdAt = todo.createdAt,
-                updatedAt = todo.updatedAt
-            )
-        }
+        fun from(todo: Todo, userResponseDto: UserResponseDto? = null) = TodoResponseDto(
+            todoId = todo.id!!,
+            title = todo.title,
+            content = todo.content,
+            weather = todo.weather,
+            owner = userResponseDto,
+            createdAt = todo.createdAt,
+            updatedAt = todo.updatedAt
+        )
+
     }
 }

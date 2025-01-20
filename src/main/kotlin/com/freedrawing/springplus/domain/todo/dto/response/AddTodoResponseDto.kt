@@ -11,14 +11,13 @@ data class AddTodoResponseDto(
     val userResponse: UserResponseDto
 ) {
     companion object {
-        fun from(todo: Todo, userResponseDto: UserResponseDto): AddTodoResponseDto {
-            return AddTodoResponseDto(
-                todoId = todo.id!!,
-                title = todo.title,
-                content = todo.content,
-                weather = todo.weather,
-                userResponse = userResponseDto
-            )
-        }
+        fun from(todo: Todo, userResponseDto: UserResponseDto) = AddTodoResponseDto(
+            todoId = todo.id!!,
+            title = todo.title,
+            content = todo.content,
+            weather = todo.weather,
+            userResponse = userResponseDto
+        )
+
     }
 }
