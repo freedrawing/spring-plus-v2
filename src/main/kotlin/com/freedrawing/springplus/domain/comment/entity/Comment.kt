@@ -22,11 +22,13 @@ class Comment(
     @Column(name = "content", nullable = false)
     var content: String = content
 
-    @JoinColumn(name = "user_id", nullable = false, updatable = false)
     @ManyToOne(fetch = FetchType.LAZY)
+//    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @JoinColumn(name = "user_id", nullable = false, updatable = false)
     val user: User = user
 
     @ManyToOne(fetch = FetchType.LAZY)
+//    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.PERSIST])
     @JoinColumn(name = "todo_id", nullable = false, updatable = false)
     val todo: Todo = todo
 

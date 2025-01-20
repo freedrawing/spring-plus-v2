@@ -1,7 +1,7 @@
 package com.freedrawing.springplus.domain.todomanagement.service
 
-import com.freedrawing.springplus.config.error.ErrorCode.*
-import com.freedrawing.springplus.domain.common.exception.AccessDeniedException
+import com.freedrawing.springplus.config.error.ErrorCode.TODO_MANAGEMENT_ALREADY_EXISTS
+import com.freedrawing.springplus.config.error.ErrorCode.TODO_MANAGEMENT_NOT_FOUND
 import com.freedrawing.springplus.domain.common.exception.EntityAlreadyExistsException
 import com.freedrawing.springplus.domain.common.exception.InvalidRequestException
 import com.freedrawing.springplus.domain.common.exception.NotFoundException
@@ -36,6 +36,8 @@ class TodoManagementService(
         val todoOwner = findTodo.user
 
         val savedTodoManagement = todoManagementRepository.save(TodoManagement(findManager, findTodo))
+        findTodo.addManager(savedTodoManagement)
+
         val managerResponse = UserResponseDto.fromEntity(findManager)
         val todoResponse = TodoResponseDto.from(findTodo, UserResponseDto.fromEntity(todoOwner))
 

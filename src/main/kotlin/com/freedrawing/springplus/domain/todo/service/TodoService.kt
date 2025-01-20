@@ -1,10 +1,8 @@
 package com.freedrawing.springplus.domain.todo.service
 
 import com.freedrawing.springplus.client.WeatherClient
-import com.freedrawing.springplus.config.error.ErrorCode
 import com.freedrawing.springplus.config.error.ErrorCode.*
 import com.freedrawing.springplus.domain.common.exception.AccessDeniedException
-import com.freedrawing.springplus.domain.common.exception.InvalidRequestException
 import com.freedrawing.springplus.domain.common.exception.NotFoundException
 import com.freedrawing.springplus.domain.todo.dto.request.AddTodoRequestDto
 import com.freedrawing.springplus.domain.todo.dto.response.AddTodoResponseDto
@@ -17,7 +15,9 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.time.LocalDate
 
+@Transactional(readOnly = true)
 @Service
 class TodoService(
     private val todoRepository: TodoRepository,
@@ -45,8 +45,18 @@ class TodoService(
         return AddTodoResponseDto.from(savedTodo, userResponseDto)
     }
 
-    fun getAllTodos(pageable: Pageable): Page<TodoResponseDto> {
-        return todoRepository.findAllByOrderByModifiedAtDesc(pageable)
+    fun getAllTodos(
+        pageable: Pageable,
+        weather: String?,
+        startDate: LocalDate?,
+        endDate: LocalDate?
+    ): Page<TodoResponseDto> {
+        return todoRepository.findAllByConditionsPaged(
+            pageable = pageable,
+            weather = weather,
+            startDate = startDate,
+            endDate = endDate
+        )
     }
 
     fun getTodoDetailsById(todoId: Long): TodoResponseDto {
