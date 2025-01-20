@@ -5,8 +5,8 @@ import com.freedrawing.springplus.config.util.Token.BEARER_PREFIX
 import com.freedrawing.springplus.config.util.Token.REFRESH_TOKEN_TYPE
 import com.freedrawing.springplus.domain.auth.exception.ExpiredTokenException
 import com.freedrawing.springplus.domain.auth.exception.InvalidTokenException
-import com.freedrawing.springplus.domain.user.Role
-import com.freedrawing.springplus.domain.user.User
+import com.freedrawing.springplus.domain.user.entity.Role
+import com.freedrawing.springplus.domain.user.entity.User
 import io.jsonwebtoken.*
 import org.springframework.stereotype.Service
 import java.time.Duration

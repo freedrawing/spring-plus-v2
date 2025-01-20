@@ -1,6 +1,6 @@
 package com.freedrawing.springplus.domain.auth.dto.reponse
 
-import com.freedrawing.springplus.domain.user.User
+import com.freedrawing.springplus.domain.user.entity.User
 
 data class SignupResponseDto(
     val userId: Long,

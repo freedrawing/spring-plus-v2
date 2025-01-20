@@ -3,8 +3,8 @@ package com.freedrawing.springplus.domain.todo.repository
 import com.freedrawing.springplus.domain.todo.dto.response.TodoResponseDto
 import com.freedrawing.springplus.domain.todo.entity.QTodo.todo
 import com.freedrawing.springplus.domain.todo.entity.Todo
-import com.freedrawing.springplus.domain.user.QUser.user
 import com.freedrawing.springplus.domain.user.dto.response.UserResponseDto
+import com.freedrawing.springplus.domain.user.entity.QUser.user
 import com.querydsl.core.types.Projections
 import com.querydsl.core.types.dsl.BooleanExpression
 import com.querydsl.jpa.impl.JPAQueryFactory
@@ -14,9 +14,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.support.PageableExecutionUtils
 import java.time.LocalDate
 
-class TodoRepositoryImpl(entityManager: EntityManager) : TodoRepositoryCustom {
-
-    private val queryFactory = JPAQueryFactory(entityManager)
+class TodoRepositoryImpl(private val queryFactory: JPAQueryFactory) : TodoRepositoryCustom {
 
     override fun findAllByConditionsPaged(
         pageable: Pageable,

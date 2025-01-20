@@ -2,6 +2,8 @@ package com.freedrawing.springplus.domain.user
 
 import com.freedrawing.springplus.config.JpaConfig
 import com.freedrawing.springplus.config.util.LoggerUtil
+import com.freedrawing.springplus.domain.user.entity.Role
+import com.freedrawing.springplus.domain.user.entity.User
 import jakarta.persistence.EntityManager
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

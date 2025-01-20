@@ -1,6 +1,6 @@
 package com.freedrawing.springplus.domain.auth
 
-import com.freedrawing.springplus.domain.user.Role
+import com.freedrawing.springplus.domain.user.entity.Role
 
 data class UserPrincipal private constructor(
     val userId: Long,

@@ -5,8 +5,8 @@ import com.freedrawing.springplus.config.error.ErrorCode
 import com.freedrawing.springplus.domain.common.exception.AccessDeniedException
 import com.freedrawing.springplus.domain.common.exception.InvalidRequestException
 import com.freedrawing.springplus.domain.common.exception.NotFoundException
-import com.freedrawing.springplus.domain.user.Role
-import com.freedrawing.springplus.domain.user.User
+import com.freedrawing.springplus.domain.user.entity.Role
+import com.freedrawing.springplus.domain.user.entity.User
 import com.freedrawing.springplus.domain.user.dto.request.ChangePasswordRequestDto
 import com.freedrawing.springplus.domain.user.dto.request.ChangeRoleRequestDto
 import com.freedrawing.springplus.domain.user.dto.response.UserResponseDto

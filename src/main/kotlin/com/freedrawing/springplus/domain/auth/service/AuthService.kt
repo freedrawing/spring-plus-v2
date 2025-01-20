@@ -10,8 +10,8 @@ import com.freedrawing.springplus.domain.auth.dto.request.SigninRequestDto
 import com.freedrawing.springplus.domain.auth.dto.request.SignupRequestDto
 import com.freedrawing.springplus.domain.auth.exception.AuthenticationException
 import com.freedrawing.springplus.domain.common.exception.EntityAlreadyExistsException
-import com.freedrawing.springplus.domain.user.Role
-import com.freedrawing.springplus.domain.user.User
+import com.freedrawing.springplus.domain.user.entity.Role
+import com.freedrawing.springplus.domain.user.entity.User
 import com.freedrawing.springplus.domain.user.repository.UserRepository
 import com.freedrawing.springplus.domain.user.service.UserService
 import org.springframework.stereotype.Service

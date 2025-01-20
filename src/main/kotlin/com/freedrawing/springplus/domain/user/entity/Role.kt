@@ -1,4 +1,4 @@
-package com.freedrawing.springplus.domain.user
+package com.freedrawing.springplus.domain.user.entity
 
 import com.freedrawing.springplus.config.error.ErrorCode
 import com.freedrawing.springplus.domain.common.exception.InvalidRequestException

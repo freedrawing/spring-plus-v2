@@ -4,17 +4,15 @@ import com.freedrawing.springplus.domain.todo.dto.response.TodoResponseDto
 import com.freedrawing.springplus.domain.todo.entity.QTodo.todo
 import com.freedrawing.springplus.domain.todomanagement.dto.response.TodoManagementResponseDto
 import com.freedrawing.springplus.domain.todomanagement.entity.QTodoManagement.todoManagement
-import com.freedrawing.springplus.domain.user.QUser.user
 import com.freedrawing.springplus.domain.user.dto.response.UserResponseDto
+import com.freedrawing.springplus.domain.user.entity.QUser.user
 import com.querydsl.core.types.Projections.constructor
 import com.querydsl.jpa.impl.JPAQueryFactory
 import jakarta.persistence.EntityManager
 
 class TodoManagementRepositoryImpl(
-    entityManager: EntityManager
+    private val queryFactory: JPAQueryFactory
 ) : TodoManagementRepositoryCustom {
-
-    private val queryFactory: JPAQueryFactory = JPAQueryFactory(entityManager)
 
     // 조금 더 간명하게
     override fun findAllByTodoIdWithUser(todoId: Long): List<TodoManagementResponseDto> {

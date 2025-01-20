@@ -4,18 +4,15 @@ import com.freedrawing.springplus.domain.comment.dto.response.CommentResponseDto
 import com.freedrawing.springplus.domain.comment.entity.QComment.comment
 import com.freedrawing.springplus.domain.todo.dto.response.TodoResponseDto
 import com.freedrawing.springplus.domain.todo.entity.QTodo.todo
-import com.freedrawing.springplus.domain.user.QUser.user
 import com.freedrawing.springplus.domain.user.dto.response.UserResponseDto
+import com.freedrawing.springplus.domain.user.entity.QUser.user
 import com.querydsl.core.types.Projections.constructor
 import com.querydsl.core.types.dsl.Expressions
 import com.querydsl.jpa.impl.JPAQueryFactory
-import jakarta.persistence.EntityManager
 
 class CommentRepositoryImpl(
-    entityManager: EntityManager
+    private val queryFactory: JPAQueryFactory
 ) : CommentRepositoryCustom {
-
-    private val queryFactory = JPAQueryFactory(entityManager)
 
     override fun findAllByTodoIdWithUser(todoId: Long): List<CommentResponseDto> {
         return queryFactory
