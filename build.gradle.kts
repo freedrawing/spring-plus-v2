@@ -48,11 +48,13 @@ dependencies {
     kapt("jakarta.annotation:jakarta.annotation-api") // QueryDSL APT에서 사용하는 @Generated 애노테이션을 제공.  클래스 생성 시 @Generated 애노테이션이 필요하며, 이를 처리하기 위해 이 의존성이 필요
     kapt("jakarta.persistence:jakarta.persistence-api") // JPA 표준 애노테이션(@Entity, @Id, @Column 등)을 정의. QueryDSL APT가 엔티티 클래스를 분석하고 Q 클래스를 생성하는 데 필수
 
-    // Lombok
-    compileOnly("org.projectlombok:lombok")
-    annotationProcessor("org.projectlombok:lombok")
-    testCompileOnly("org.projectlombok:lombok")
-    testAnnotationProcessor("org.projectlombok:lombok")
+    // Kotlin-Logging
+    implementation ("io.github.oshai:kotlin-logging-jvm:7.0.3")
+
+    // p6spy
+//    implementation ("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.2")
+    implementation ("p6spy:p6spy:3.9.1")
+    implementation ("com.github.gavlyukovskiy:datasource-decorator-spring-boot-autoconfigure:1.9.2")
 
     // test
     testImplementation(kotlin("test")) // `Kotlin`에서 테스트를 작성하기 위한 표준 라이브러리.
