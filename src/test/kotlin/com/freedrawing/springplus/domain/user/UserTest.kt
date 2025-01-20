@@ -27,7 +27,9 @@ class UserTest {
 
         entityManager.persist(user)
 
-        LoggerUtil.log.info("user={}", user)
+        LoggerUtil.logger.info { "${"user={}"} $user" }
 
     }
+
+
 }
