@@ -4,7 +4,7 @@ import com.freedrawing.springplus.domain.todo.dto.response.TodoResponseDto
 import com.freedrawing.springplus.domain.todo.entity.QTodo.todo
 import com.freedrawing.springplus.domain.todomanagement.dto.response.TodoManagementResponseDto
 import com.freedrawing.springplus.domain.todomanagement.entity.QTodoManagement.todoManagement
-import com.freedrawing.springplus.domain.user.QUser.user
+import com.freedrawing.springplus.domain.user.entity.QUser.user
 import com.freedrawing.springplus.domain.user.dto.response.UserResponseDto
 import com.querydsl.core.types.Projections.constructor
 import com.querydsl.jpa.impl.JPAQueryFactory

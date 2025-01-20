@@ -2,7 +2,7 @@ package com.freedrawing.springplus.domain.todomanagement.entity
 
 import com.freedrawing.springplus.domain.common.entity.Timestamped
 import com.freedrawing.springplus.domain.todo.entity.Todo
-import com.freedrawing.springplus.domain.user.User
+import com.freedrawing.springplus.domain.user.entity.User
 import jakarta.persistence.*
 
 @Entity

@@ -1,6 +1,5 @@
 package com.freedrawing.springplus.domain.auth.service
 
-import com.freedrawing.springplus.config.PasswordEncoder
 import com.freedrawing.springplus.config.TokenProvider
 import com.freedrawing.springplus.config.error.ErrorCode
 import com.freedrawing.springplus.config.util.Token
@@ -10,10 +9,11 @@ import com.freedrawing.springplus.domain.auth.dto.request.SigninRequestDto
 import com.freedrawing.springplus.domain.auth.dto.request.SignupRequestDto
 import com.freedrawing.springplus.domain.auth.exception.AuthenticationException
 import com.freedrawing.springplus.domain.common.exception.EntityAlreadyExistsException
-import com.freedrawing.springplus.domain.user.Role
-import com.freedrawing.springplus.domain.user.User
+import com.freedrawing.springplus.domain.user.entity.Role
+import com.freedrawing.springplus.domain.user.entity.User
 import com.freedrawing.springplus.domain.user.repository.UserRepository
 import com.freedrawing.springplus.domain.user.service.UserService
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional
 class AuthService(
     private val userService: UserService,
     private val userRepository: UserRepository,
-    private val passwordEncoder: PasswordEncoder,
+    private val bCryptPasswordEncoder: BCryptPasswordEncoder,
     private val tokenProvider: TokenProvider
 ) {
 
@@ -36,7 +36,7 @@ class AuthService(
         val savedUser = userRepository.save(
             User(
                 email = requestDto.email,
-                password = passwordEncoder.encode(requestDto.password),
+                password = bCryptPasswordEncoder.encode(requestDto.password),
                 nickname = requestDto.nickname,
                 role = Role.of(requestDto.userRole),
                 profileImgUrl = requestDto.profileImgUrl
@@ -47,8 +47,10 @@ class AuthService(
 
     fun signin(requestDto: SigninRequestDto): SigninResponseDto {
         val findUser = userService.getUserByEmail(requestDto.email)
+        val rawPassword = requestDto.password
+        val encodedPassword = findUser.password
 
-        if (passwordEncoder.matches(rawPassword = requestDto.password, encodedPassword = findUser.password).not()) {
+        if (bCryptPasswordEncoder.matches(rawPassword, encodedPassword).not()) {
             throw AuthenticationException(ErrorCode.INVALID_CREDENTIALS)
         }
 

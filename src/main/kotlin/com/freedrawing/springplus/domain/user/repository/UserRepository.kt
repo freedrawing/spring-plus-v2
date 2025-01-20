@@ -1,6 +1,6 @@
 package com.freedrawing.springplus.domain.user.repository
 
-import com.freedrawing.springplus.domain.user.User
+import com.freedrawing.springplus.domain.user.entity.User
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 

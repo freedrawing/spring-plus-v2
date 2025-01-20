@@ -1,7 +1,7 @@
 package com.freedrawing.springplus.domain.user.dto.response
 
-import com.freedrawing.springplus.domain.user.Role
-import com.freedrawing.springplus.domain.user.User
+import com.freedrawing.springplus.domain.user.entity.Role
+import com.freedrawing.springplus.domain.user.entity.User
 
 data class UserResponseDto(
     val userId: Long,

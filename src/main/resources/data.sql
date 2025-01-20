@@ -1,11 +1,12 @@
+-- PasswordEncoder.encode("123") -> $2a$04$gCuz1q96Ogg5fIT07PS0PeTfYmxoZT.FUmsmJc8OkStnAMx.zSRzO
 INSERT INTO users (created_at, updated_at, email, nickname, password, role)
 VALUES
-    (NOW(), NOW(), 'user1@example.com', 'UserOne', '$2a$04$gCuz1q96Ogg5fIT07PS0PeTfYmxoZT.FUmsmJc8OkStnAMx.zSRzO', 'USER'),
-    (NOW(), NOW(), 'user2@example.com', 'UserTwo', '$2a$04$gCuz1q96Ogg5fIT07PS0PeTfYmxoZT.FUmsmJc8OkStnAMx.zSRzO', 'USER'),
-    (NOW(), NOW(), 'manager1@example.com', 'ManagerOne', '$2a$04$gCuz1q96Ogg5fIT07PS0PeTfYmxoZT.FUmsmJc8OkStnAMx.zSRzO', 'MANAGER'),
-    (NOW(), NOW(), 'manager2@example.com', 'ManagerTwo', '$2a$04$gCuz1q96Ogg5fIT07PS0PeTfYmxoZT.FUmsmJc8OkStnAMx.zSRzO', 'MANAGER'),
-    (NOW(), NOW(), 'admin1@example.com', 'AdminOne', '$2a$04$gCuz1q96Ogg5fIT07PS0PeTfYmxoZT.FUmsmJc8OkStnAMx.zSRzO', 'ADMIN'),
-    (NOW(), NOW(), 'admin2@example.com', 'AdminTwo', '$2a$04$gCuz1q96Ogg5fIT07PS0PeTfYmxoZT.FUmsmJc8OkStnAMx.zSRzO', 'ADMIN');
+    (NOW(), NOW(), 'user1@example.com', 'UserOne', '$2a$10$7DEBqetiplxmeL8RMkK2A.0vya5hAdW7Fg/GNwXlDgy33aL8I32nO', 'USER'),
+    (NOW(), NOW(), 'user2@example.com', 'UserTwo', '$2a$10$7DEBqetiplxmeL8RMkK2A.0vya5hAdW7Fg/GNwXlDgy33aL8I32nO', 'USER'),
+    (NOW(), NOW(), 'manager1@example.com', 'ManagerOne', '$2a$10$7DEBqetiplxmeL8RMkK2A.0vya5hAdW7Fg/GNwXlDgy33aL8I32nO', 'MANAGER'),
+    (NOW(), NOW(), 'manager2@example.com', 'ManagerTwo', '$2a$10$7DEBqetiplxmeL8RMkK2A.0vya5hAdW7Fg/GNwXlDgy33aL8I32nO', 'MANAGER'),
+    (NOW(), NOW(), 'admin1@example.com', 'AdminOne', '$2a$10$7DEBqetiplxmeL8RMkK2A.0vya5hAdW7Fg/GNwXlDgy33aL8I32nO', 'ADMIN'),
+    (NOW(), NOW(), 'admin2@example.com', 'AdminTwo', '$2a$10$7DEBqetiplxmeL8RMkK2A.0vya5hAdW7Fg/GNwXlDgy33aL8I32nO', 'ADMIN');
 
 INSERT INTO todo (created_at, updated_at, user_id, content, title, weather, id)
 VALUES

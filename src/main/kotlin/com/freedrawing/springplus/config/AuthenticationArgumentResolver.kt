@@ -4,7 +4,7 @@ import com.freedrawing.springplus.config.error.ErrorCode
 import com.freedrawing.springplus.domain.auth.UserPrincipal
 import com.freedrawing.springplus.domain.auth.annotation.Authentication
 import com.freedrawing.springplus.domain.common.exception.InvalidRequestException
-import com.freedrawing.springplus.domain.user.Role
+import com.freedrawing.springplus.domain.user.entity.Role
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.core.MethodParameter
 import org.springframework.web.bind.support.WebDataBinderFactory

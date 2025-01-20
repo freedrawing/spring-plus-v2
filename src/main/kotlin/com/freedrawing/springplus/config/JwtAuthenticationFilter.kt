@@ -5,27 +5,31 @@ import com.freedrawing.springplus.config.util.LoggerUtil
 import com.freedrawing.springplus.config.util.Token
 import com.freedrawing.springplus.config.util.Url
 import com.freedrawing.springplus.domain.common.exception.NotFoundException
-import jakarta.servlet.Filter
 import jakarta.servlet.FilterChain
-import jakarta.servlet.ServletRequest
-import jakarta.servlet.ServletResponse
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.util.StringUtils.hasText
+import org.springframework.web.filter.OncePerRequestFilter
 
 class JwtAuthenticationFilter(
     private val tokenProvider: TokenProvider
-) : Filter {
+) : OncePerRequestFilter() {
 
-    override fun doFilter(httpRequest: ServletRequest, httpResponse: ServletResponse, filterChain: FilterChain) {
+    override fun doFilterInternal(
+        request: HttpServletRequest,
+        response: HttpServletResponse,
+        filterChain: FilterChain
+    ) {
 
-        val httpServletRequest = httpRequest as HttpServletRequest
-        val httpServletResponse = httpResponse as HttpServletResponse
+        val httpServletRequest = request as HttpServletRequest
+        val httpServletResponse = response as HttpServletResponse
 
-        if (Url.isIncludedInWhiteList(httpRequest.requestURI)) {
-            filterChain.doFilter(httpServletRequest, httpServletResponse)
-            return
-        }
+        LoggerUtil.logger.debug { "request.requestURI=${request.requestURI}" }
+
+//        if (Url.isIncludedInWhiteList(request.requestURI)) {
+//            filterChain.doFilter(httpServletRequest, httpServletResponse)
+//            return
+//        }
 
         val accessToken = httpServletRequest.getHeader(Token.AUTHORIZATION_HEADER)
         validateToken(accessToken)
@@ -40,6 +44,10 @@ class JwtAuthenticationFilter(
 
         filterChain.doFilter(httpServletRequest, httpServletResponse)
     }
+
+//    override fun shouldNotFilter(request: HttpServletRequest): Boolean {
+//        return Url.isIncludedInWhiteList(request.requestURI)
+//    }
 
     private fun validateToken(accessToken: String?) {
         if (hasText(accessToken).not()) {

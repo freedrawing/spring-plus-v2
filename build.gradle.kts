@@ -36,6 +36,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation") // javax.validation을 통해 데이터 유효성 검사를 지원.
     developmentOnly("org.springframework.boot:spring-boot-devtools") // 개발 중 핫 리로드 및 기타 편의 기능 제공.
 
+    // Spring Security
+    implementation ("org.springframework.boot:spring-boot-starter-security")
+    testImplementation ("org.springframework.security:spring-security-test")
+
     // JPA
     implementation("org.springframework.boot:spring-boot-starter-data-jpa") // PA와 Hibernate를 기반으로 한 데이터 계층 작업을 지원.
 
@@ -51,7 +55,7 @@ dependencies {
     // Kotlin-Logging
     implementation ("io.github.oshai:kotlin-logging-jvm:7.0.3")
 
-    // p6spy
+    // P6Spy
 //    implementation ("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.2")
     implementation ("p6spy:p6spy:3.9.1")
     implementation ("com.github.gavlyukovskiy:datasource-decorator-spring-boot-autoconfigure:1.9.2")

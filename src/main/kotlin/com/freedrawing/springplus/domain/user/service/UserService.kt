@@ -1,16 +1,16 @@
 package com.freedrawing.springplus.domain.user.service
 
-import com.freedrawing.springplus.config.PasswordEncoder
 import com.freedrawing.springplus.config.error.ErrorCode
 import com.freedrawing.springplus.domain.common.exception.AccessDeniedException
 import com.freedrawing.springplus.domain.common.exception.InvalidRequestException
 import com.freedrawing.springplus.domain.common.exception.NotFoundException
-import com.freedrawing.springplus.domain.user.Role
-import com.freedrawing.springplus.domain.user.User
 import com.freedrawing.springplus.domain.user.dto.request.ChangePasswordRequestDto
 import com.freedrawing.springplus.domain.user.dto.request.ChangeRoleRequestDto
 import com.freedrawing.springplus.domain.user.dto.response.UserResponseDto
+import com.freedrawing.springplus.domain.user.entity.Role
+import com.freedrawing.springplus.domain.user.entity.User
 import com.freedrawing.springplus.domain.user.repository.UserRepository
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class UserService(
     private val userRepository: UserRepository,
-    private val passwordEncoder: PasswordEncoder
+    private val bCryptPasswordEncoder: BCryptPasswordEncoder
 ) {
 
     fun getUserDetailsById(userId: Long): UserResponseDto {
@@ -29,12 +29,14 @@ class UserService(
     @Transactional
     fun changeUserPassword(userId: Long, requestDto: ChangePasswordRequestDto) {
         val findUser = getUserById(userId)
+        val rawPassword = requestDto.newPassword
+        val encodedPassword = findUser.password
 
-        if (passwordEncoder.matches(rawPassword = requestDto.newPassword, encodedPassword = findUser.password)) {
+        if (bCryptPasswordEncoder.matches(rawPassword, encodedPassword)) {
             throw InvalidRequestException("새 비밀번호와 기존 비밀번호는 같을 수 없습니다.")
         }
 
-        findUser.changePassword(passwordEncoder.encode(requestDto.newPassword))
+        findUser.changePassword(bCryptPasswordEncoder.encode(requestDto.newPassword))
     }
 
     /*
