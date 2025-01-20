@@ -14,9 +14,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.support.PageableExecutionUtils
 import java.time.LocalDate
 
-class TodoRepositoryImpl(entityManager: EntityManager) : TodoRepositoryCustom {
-
-    private val queryFactory = JPAQueryFactory(entityManager)
+class TodoRepositoryImpl(private val queryFactory: JPAQueryFactory) : TodoRepositoryCustom {
 
     override fun findAllByConditionsPaged(
         pageable: Pageable,

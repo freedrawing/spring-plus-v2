@@ -11,10 +11,8 @@ import com.querydsl.jpa.impl.JPAQueryFactory
 import jakarta.persistence.EntityManager
 
 class TodoManagementRepositoryImpl(
-    entityManager: EntityManager
+    private val queryFactory: JPAQueryFactory
 ) : TodoManagementRepositoryCustom {
-
-    private val queryFactory: JPAQueryFactory = JPAQueryFactory(entityManager)
 
     // 조금 더 간명하게
     override fun findAllByTodoIdWithUser(todoId: Long): List<TodoManagementResponseDto> {

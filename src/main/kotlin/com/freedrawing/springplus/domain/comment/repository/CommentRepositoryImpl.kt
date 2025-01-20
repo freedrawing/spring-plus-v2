@@ -12,10 +12,8 @@ import com.querydsl.jpa.impl.JPAQueryFactory
 import jakarta.persistence.EntityManager
 
 class CommentRepositoryImpl(
-    entityManager: EntityManager
+    private val queryFactory: JPAQueryFactory
 ) : CommentRepositoryCustom {
-
-    private val queryFactory = JPAQueryFactory(entityManager)
 
     override fun findAllByTodoIdWithUser(todoId: Long): List<CommentResponseDto> {
         return queryFactory
