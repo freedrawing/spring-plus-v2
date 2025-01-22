@@ -2,7 +2,6 @@ package com.freedrawing.springplus.domain.todo.controller
 
 import com.freedrawing.springplus.config.WebConfig
 import com.freedrawing.springplus.config.error.ErrorCode.TODO_NOT_FOUND
-import com.freedrawing.springplus.domain.auth.UserPrincipal
 import com.freedrawing.springplus.domain.common.exception.NotFoundException
 import com.freedrawing.springplus.domain.todo.dto.response.TodoResponseDto
 import com.freedrawing.springplus.domain.todo.entity.Todo
@@ -44,12 +43,12 @@ class TodoControllerTest {
     @Test
     fun `todo_단건 조회에 성공한다`() {
         // given
-        val userPrincipal = UserPrincipal.fromRequest(1L, "hello", Role.USER)
+        val userPrincipalDeprecated = UserPrincipalDeprecated.fromRequest(1L, "hello", Role.USER)
         val user = User(
             email = "user@email.com",
             password = "123",
-            nickname = userPrincipal.nickname,
-            role = userPrincipal.role,
+            nickname = userPrincipalDeprecated.nickname,
+            role = userPrincipalDeprecated.role,
             profileImgUrl = "https://~~"
         )
         ReflectionTestUtils.setField(user, "id", 1L)

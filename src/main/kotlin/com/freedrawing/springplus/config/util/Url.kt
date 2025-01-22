@@ -3,7 +3,7 @@ package com.freedrawing.springplus.config.util
 import org.springframework.util.PatternMatchUtils
 
 object Url {
-    private val WHITE_LIST: Array<String> = arrayOf(
+    val WHITE_LIST: Array<String> = arrayOf(
         "/auth/**"
     )
 

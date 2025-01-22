@@ -1,15 +1,21 @@
 package com.freedrawing.springplus.domain.auth
 
 import com.freedrawing.springplus.domain.user.entity.Role
+import org.springframework.security.core.authority.SimpleGrantedAuthority
+import org.springframework.security.core.userdetails.UserDetails
 
-data class UserPrincipal private constructor(
+class UserPrincipal(
     val userId: Long,
     val nickname: String,
     val role: Role
-) {
-    companion object {
-        fun fromRequest(userId: Long, nickname: String, role: Role): UserPrincipal {
-            return UserPrincipal(userId = userId, nickname = nickname, role = role)
-        }
+) : UserDetails {
+
+    override fun getAuthorities(): List<SimpleGrantedAuthority> {
+        return listOf(SimpleGrantedAuthority(role.name))
     }
+
+    override fun getPassword() = ""
+
+    override fun getUsername() = nickname
+
 }

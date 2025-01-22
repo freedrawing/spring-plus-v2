@@ -1,18 +1,14 @@
 package com.freedrawing.springplus.domain.comment.controller
 
 import com.freedrawing.springplus.domain.auth.UserPrincipal
-import com.freedrawing.springplus.domain.auth.annotation.Authentication
 import com.freedrawing.springplus.domain.comment.dto.request.AddCommentRequestDto
 import com.freedrawing.springplus.domain.comment.dto.response.CommentResponseDto
 import com.freedrawing.springplus.domain.comment.service.CommentService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.web.bind.annotation.*
 
 @RestController
 class CommentController(
@@ -21,7 +17,7 @@ class CommentController(
 
     @PostMapping("/comments")
     fun addComment(
-        @Authentication userPrincipal: UserPrincipal,
+        @AuthenticationPrincipal userPrincipal: UserPrincipal,
         @RequestParam(required = true) todoId: Long,
         @Valid @RequestBody requestDto: AddCommentRequestDto
     ): ResponseEntity<CommentResponseDto> {

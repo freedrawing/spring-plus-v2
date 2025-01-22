@@ -1,19 +1,15 @@
 package com.freedrawing.springplus.domain.user.controller;
 
 import com.freedrawing.springplus.domain.auth.UserPrincipal
-import com.freedrawing.springplus.domain.auth.annotation.Authentication
-import com.freedrawing.springplus.domain.user.annotation.AdminOnly
 import com.freedrawing.springplus.domain.user.dto.request.ChangePasswordRequestDto
 import com.freedrawing.springplus.domain.user.dto.request.ChangeRoleRequestDto
 import com.freedrawing.springplus.domain.user.dto.response.UserResponseDto
 import com.freedrawing.springplus.domain.user.service.UserService
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PatchMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.web.bind.annotation.*
 
 @RestController
 class UserController(
@@ -28,7 +24,7 @@ class UserController(
 
     @PatchMapping("/users")
     fun changePassword(
-        @Authentication userPrincipal: UserPrincipal,
+        @AuthenticationPrincipal userPrincipal: UserPrincipal,
         @Valid @RequestBody requestDto: ChangePasswordRequestDto
     ): ResponseEntity<Void> {
         userService.changeUserPassword(userPrincipal.userId, requestDto)
@@ -36,11 +32,11 @@ class UserController(
             .build()
     }
 
-    @AdminOnly
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PatchMapping("/admin/users/{userId}")
     fun changeRole(
         @PathVariable userId: Long,
-        @Authentication userPrincipal: UserPrincipal,
+        @AuthenticationPrincipal userPrincipal: UserPrincipal,
         @RequestBody requestDto: ChangeRoleRequestDto
     ): ResponseEntity<UserResponseDto> {
 

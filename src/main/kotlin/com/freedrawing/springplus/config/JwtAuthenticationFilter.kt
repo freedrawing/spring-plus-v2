@@ -3,11 +3,11 @@ package com.freedrawing.springplus.config
 import com.freedrawing.springplus.config.error.ErrorCode
 import com.freedrawing.springplus.config.util.LoggerUtil
 import com.freedrawing.springplus.config.util.Token
-import com.freedrawing.springplus.config.util.Url
 import com.freedrawing.springplus.domain.common.exception.NotFoundException
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.util.StringUtils.hasText
 import org.springframework.web.filter.OncePerRequestFilter
 
@@ -20,16 +20,10 @@ class JwtAuthenticationFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-
         val httpServletRequest = request as HttpServletRequest
         val httpServletResponse = response as HttpServletResponse
 
         LoggerUtil.logger.debug { "request.requestURI=${request.requestURI}" }
-
-//        if (Url.isIncludedInWhiteList(request.requestURI)) {
-//            filterChain.doFilter(httpServletRequest, httpServletResponse)
-//            return
-//        }
 
         val accessToken = httpServletRequest.getHeader(Token.AUTHORIZATION_HEADER)
         validateToken(accessToken)
@@ -38,9 +32,14 @@ class JwtAuthenticationFilter(
         val nickname = tokenProvider.getNicknameFrom(accessToken)
         val role = tokenProvider.getRoleFrom(accessToken)
 
+
         httpServletRequest.setAttribute("userId", userId)
         httpServletRequest.setAttribute("nickname", nickname)
         httpServletRequest.setAttribute("role", role)
+
+
+        val authentication = tokenProvider.getAuthentication(accessToken)
+        SecurityContextHolder.getContext().authentication = authentication
 
         filterChain.doFilter(httpServletRequest, httpServletResponse)
     }

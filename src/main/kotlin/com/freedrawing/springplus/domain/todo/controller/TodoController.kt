@@ -1,7 +1,6 @@
 package com.freedrawing.springplus.domain.todo.controller
 
 import com.freedrawing.springplus.domain.auth.UserPrincipal
-import com.freedrawing.springplus.domain.auth.annotation.Authentication
 import com.freedrawing.springplus.domain.todo.dto.request.AddTodoRequestDto
 import com.freedrawing.springplus.domain.todo.dto.response.AddTodoResponseDto
 import com.freedrawing.springplus.domain.todo.dto.response.TodoResponseDto
@@ -12,6 +11,7 @@ import org.springframework.data.domain.PageRequest
 import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
 import java.time.LocalDate
 
@@ -22,7 +22,7 @@ class TodoController(
 
     @PostMapping("/todos")
     fun saveTodo(
-        @Authentication userPrincipal: UserPrincipal,
+        @AuthenticationPrincipal userPrincipal: UserPrincipal,
         @Valid @RequestBody requestDto: AddTodoRequestDto
     ): ResponseEntity<AddTodoResponseDto> {
         val response = todoService.saveTodo(userPrincipal.userId, requestDto)

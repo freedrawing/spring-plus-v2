@@ -4,6 +4,7 @@ import com.freedrawing.springplus.config.util.LoggerUtil
 import com.freedrawing.springplus.domain.common.exception.BaseException
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageConversionException
+import org.springframework.security.authorization.AuthorizationDeniedException
 import org.springframework.web.HttpRequestMethodNotSupportedException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.MissingRequestValueException
@@ -45,6 +46,14 @@ class GlobalExceptionHandler {
         LoggerUtil.logger.error(e) { "${"Invalid Input Exception"}" }
         return createErrorResponseEntity(ErrorCode.INVALID_REQUEST)
     }
+
+    // org.springframework.security.authorization.AuthorizationDeniedException
+    @ExceptionHandler(AuthorizationDeniedException::class)
+    protected fun handleAuthorizationDeniedException(e: RuntimeException): ResponseEntity<ErrorResponse> {
+        LoggerUtil.logger.error(e) { "${"AuthorizationDenied Exception"}" }
+        return createErrorResponseEntity(ErrorCode.ACCESS_DENIED)
+    }
+
 
     // Business Exception(대부분 여기서 걸림)
     @ExceptionHandler(BaseException::class)

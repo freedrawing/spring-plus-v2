@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.MediaType
 import java.nio.charset.StandardCharsets
 
-class ExceptionHandlerFilter(
+class FrontExceptionHandlerFilter(
     private val objectMapper: ObjectMapper
 ) : Filter {
 
@@ -26,7 +26,7 @@ class ExceptionHandlerFilter(
         } catch (e: BaseException) {
             sendErrorResponse(httpServletResponse, e.errorCode, e.message!!)
             LoggerUtil.logger.error(e) { "${"error={}"}" }
-        } catch (e: Exception) {
+        } catch (e: Exception) { // 흠... 기껏해야 인증 에러일 텐데, 500 에러를 넘기는 게 맞나...
             sendErrorResponse(httpServletResponse, INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR.message)
             LoggerUtil.logger.error(e) { "${"error={}"}" }
         }

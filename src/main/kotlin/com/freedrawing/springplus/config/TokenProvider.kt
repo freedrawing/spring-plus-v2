@@ -1,13 +1,18 @@
 package com.freedrawing.springplus.config
 
+import com.freedrawing.springplus.config.error.ErrorCode
 import com.freedrawing.springplus.config.util.Token.ACCESS_TOKEN_TYPE
 import com.freedrawing.springplus.config.util.Token.BEARER_PREFIX
 import com.freedrawing.springplus.config.util.Token.REFRESH_TOKEN_TYPE
+import com.freedrawing.springplus.domain.auth.UserPrincipal
 import com.freedrawing.springplus.domain.auth.exception.ExpiredTokenException
 import com.freedrawing.springplus.domain.auth.exception.InvalidTokenException
+import com.freedrawing.springplus.domain.common.exception.NotFoundException
 import com.freedrawing.springplus.domain.user.entity.Role
 import com.freedrawing.springplus.domain.user.entity.User
 import io.jsonwebtoken.*
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Service
 import java.time.Duration
 import java.util.*
@@ -63,6 +68,19 @@ class TokenProvider(private val jwtProperties: JwtProperties) {
         }
     }
 
+    fun getAuthentication(rawToken: String): Authentication {
+        val accessToken = extractToken(rawToken)
+
+        val userId = getUserIdFrom(accessToken)
+        val nickname = getNicknameFrom(accessToken)
+        val role = getRoleFrom(accessToken)
+        val userPrincipal = UserPrincipal(userId, nickname, role)
+
+        return UsernamePasswordAuthenticationToken(
+            userPrincipal, null, userPrincipal.authorities
+        )
+    }
+
     fun isRefreshToken(token: String): Boolean {
         val claims = getClaims(token)
         val tokenType = claims.get("tokenType", String::class.java)
@@ -108,13 +126,13 @@ class TokenProvider(private val jwtProperties: JwtProperties) {
         return Jwts.parser()
             .setSigningKey(jwtProperties.secretKey)
             .parseClaimsJws(extractedToken)
-            .getBody()
+            .body
     }
 
     private fun extractToken(rawToken: String?): String { // "Bearer " 접두사 제거
 
         if (rawToken.isNullOrBlank()) {
-            throw InvalidTokenException()
+            throw NotFoundException(ErrorCode.TOKEN_NOT_FOUND)
         }
 
         // Bearer 접두사가 없더라도 우선 허용.
