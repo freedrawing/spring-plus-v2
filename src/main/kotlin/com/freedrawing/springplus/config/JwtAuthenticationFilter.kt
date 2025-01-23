@@ -28,16 +28,6 @@ class JwtAuthenticationFilter(
         val accessToken = httpServletRequest.getHeader(Token.AUTHORIZATION_HEADER)
         validateToken(accessToken)
 
-        val userId = tokenProvider.getUserIdFrom(accessToken)
-        val nickname = tokenProvider.getNicknameFrom(accessToken)
-        val role = tokenProvider.getRoleFrom(accessToken)
-
-
-        httpServletRequest.setAttribute("userId", userId)
-        httpServletRequest.setAttribute("nickname", nickname)
-        httpServletRequest.setAttribute("role", role)
-
-
         val authentication = tokenProvider.getAuthentication(accessToken)
         SecurityContextHolder.getContext().authentication = authentication
 

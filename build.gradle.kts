@@ -44,7 +44,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa") // PA와 Hibernate를 기반으로 한 데이터 계층 작업을 지원.
 
     // DB
+    runtimeOnly("com.h2database:h2")
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client") // MariaDB 데이터베이스와의 연결을 위한 JDBC 드라이버.
+    runtimeOnly("com.mysql:mysql-connector-j") // MySQL 8 의존성 추가
 
     // QueryDSL
     implementation("com.querydsl:querydsl-jpa:5.1.0:jakarta") // Querydsl의 JPA 관련 기능 제공 (JPAQueryFactory, BooleanBuilder, PathBuilder ...)
@@ -65,12 +67,6 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-
-    // h2
-    runtimeOnly("com.h2database:h2")
-
-    // BCrypt Encoder (Spring Security 의존성 추가 없이 Encoder 사용할 때)
-    implementation("at.favre.lib:bcrypt:0.10.2")
 
     // JWT
     implementation("io.jsonwebtoken:jjwt:0.9.1") // Java JWT library

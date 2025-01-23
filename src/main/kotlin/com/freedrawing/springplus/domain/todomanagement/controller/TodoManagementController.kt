@@ -24,6 +24,7 @@ class TodoManagementController(
     ): ResponseEntity<TodoManagementResponseDto> {
 
         val response = todoManagementService.assignManagerToTodo(
+            assignerId = userPrincipal.userId,
             managerId = managerId,
             todoId = todoId
         )

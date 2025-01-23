@@ -39,6 +39,8 @@ out/
 ### Kotlin ###
 .kotlin
 
-application*.yaml
-application*.yml
+application-dev.yaml
+application-dev.yml
+application-prod-test.yaml
+
 *.sql

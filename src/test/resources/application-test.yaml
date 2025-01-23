@@ -1,0 +1,12 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+  output:
+    ansi:
+      enabled: always
+
+logging:
+  level:
+    com.p6spy: debug
+    org.hibernate: off

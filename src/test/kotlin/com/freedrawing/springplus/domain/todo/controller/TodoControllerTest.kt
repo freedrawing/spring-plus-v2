@@ -1,21 +1,27 @@
 package com.freedrawing.springplus.domain.todo.controller
 
-import com.freedrawing.springplus.config.WebConfig
+import com.freedrawing.springplus.config.P6SpyConfig
 import com.freedrawing.springplus.config.error.ErrorCode.TODO_NOT_FOUND
+import com.freedrawing.springplus.domain.auth.UserPrincipal
 import com.freedrawing.springplus.domain.common.exception.NotFoundException
 import com.freedrawing.springplus.domain.todo.dto.response.TodoResponseDto
 import com.freedrawing.springplus.domain.todo.entity.Todo
 import com.freedrawing.springplus.domain.todo.service.TodoService
+import com.freedrawing.springplus.domain.user.dto.response.UserResponseDto
 import com.freedrawing.springplus.domain.user.entity.Role
 import com.freedrawing.springplus.domain.user.entity.User
-import com.freedrawing.springplus.domain.user.dto.response.UserResponseDto
+import org.apache.catalina.security.SecurityConfig
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito.*
+import org.mockito.Mockito.anyLong
+import org.mockito.Mockito.`when`
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.FilterType
+import org.springframework.context.annotation.Import
 import org.springframework.http.MediaType
+import org.springframework.security.test.context.support.WithMockUser
+import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.springframework.test.util.ReflectionTestUtils
 import org.springframework.test.web.servlet.MockMvc
@@ -25,10 +31,12 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPat
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import java.time.LocalDateTime
 
+@Import(P6SpyConfig::class)
+@ActiveProfiles("test")
 @WebMvcTest(
     controllers = [TodoController::class],
     excludeFilters = [
-        ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = [WebConfig::class])
+        ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = [SecurityConfig::class])
     ]
 )
 class TodoControllerTest {
@@ -40,15 +48,16 @@ class TodoControllerTest {
     lateinit var mockMvc: MockMvc
 
 
+    @WithMockUser(username = "hello", roles = ["USER"])
     @Test
     fun `todo_단건 조회에 성공한다`() {
         // given
-        val userPrincipalDeprecated = UserPrincipalDeprecated.fromRequest(1L, "hello", Role.USER)
+        val userPrincipal = UserPrincipal(1L, "hello", Role.USER)
         val user = User(
             email = "user@email.com",
             password = "123",
-            nickname = userPrincipalDeprecated.nickname,
-            role = userPrincipalDeprecated.role,
+            nickname = userPrincipal.nickname,
+            role = userPrincipal.role,
             profileImgUrl = "https://~~"
         )
         ReflectionTestUtils.setField(user, "id", 1L)
@@ -81,6 +90,7 @@ class TodoControllerTest {
             .andDo(print())
     }
 
+    @WithMockUser(username = "hello", roles = ["USER"])
     @Test
     fun `todo 단건 조회 시, 'todo'가 존재하지 않아 예외가 발생한다`() {
         // given
