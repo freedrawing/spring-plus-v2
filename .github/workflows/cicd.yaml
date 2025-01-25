@@ -3,7 +3,7 @@ name: CI/CD
 # 워크플로우 트리거 설정
 on:
   push:
-#    branches: [ main ]    # main 브랜치에 push될 때 실행
+    branches: [ main ]    # main 브랜치에 push될 때 실행
   pull_request:
     branches: [ main ]    # main 브랜치로 PR이 생성될 때 실행
 
@@ -37,14 +37,14 @@ jobs:
       - name: Run tests
         env:
           SPRING_PROFILES_ACTIVE: test
-        run: ./gradlew test --parallel --max-workers=4 --info
+        run: ./gradlew test --parallel --info
 
   # 배포 Job
   deploy:
     needs: test    # test job이 성공해야 실행
     runs-on: ubuntu-latest
     steps:
-      # 소스 코드 체크아웃
+      # 소스 코드 체크아웃 (ubuntu 서버로 깃허브에 저장된 코드를 복사하는 작업 정도로 이해)
       - uses: actions/checkout@v3
 
       # AWS 자격 증명 설정
@@ -173,3 +173,6 @@ jobs:
             docker compose down
             docker compose pull
             docker compose up -d
+            
+            # 사용하지 않는 이미지, 컨테이너, 볼륨 정리
+            docker system prune -af --volumes
