@@ -72,6 +72,9 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt:0.9.1") // Java JWT library
     implementation("javax.xml.bind:jaxb-api:2.3.1") // XML document와 Java 객체 간 매핑 자동화
 
+    // Elasticsearch
+    implementation ("org.springframework.boot:spring-boot-starter-data-elasticsearch")
+
 }
 
 // JSR-305 애노테이션을 엄격하게 처리. `Nullable` 및 `NonNull`을 더 안전하게 다룸.
@@ -96,3 +99,5 @@ allOpen {
     annotation("jakarta.persistence.Embeddable")
     annotation("jakarta.persistence.MappedSuperclass")
 }
+
+

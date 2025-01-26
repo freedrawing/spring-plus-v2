@@ -6,6 +6,7 @@ import com.freedrawing.springplus.domain.common.exception.AccessDeniedException
 import com.freedrawing.springplus.domain.common.exception.NotFoundException
 import com.freedrawing.springplus.domain.todo.dto.request.AddTodoRequestDto
 import com.freedrawing.springplus.domain.todo.dto.response.AddTodoResponseDto
+import com.freedrawing.springplus.domain.todo.dto.response.ComplexTodoResponseDto
 import com.freedrawing.springplus.domain.todo.dto.response.TodoResponseDto
 import com.freedrawing.springplus.domain.todo.entity.Todo
 import com.freedrawing.springplus.domain.todo.repository.TodoRepository
@@ -45,17 +46,31 @@ class TodoService(
         return AddTodoResponseDto.from(savedTodo, userResponseDto)
     }
 
-    fun getAllTodos(
+    fun getFilteredTodos(
         pageable: Pageable,
         weather: String?,
         startDate: LocalDate?,
         endDate: LocalDate?
     ): Page<TodoResponseDto> {
-        return todoRepository.findAllByConditionsPaged(
+        return todoRepository.findAllByWeatherAndDateRange(
             pageable = pageable,
             weather = weather,
             startDate = startDate,
             endDate = endDate
+        )
+    }
+
+    fun getComplexFilteredTodos(
+        pageable: Pageable,
+        todoTitle: String?,
+        createdAt: LocalDate?,
+        managerName: String?
+    ): Page<ComplexTodoResponseDto> {
+        return todoRepository.findAllByNameAndDateAndManager(
+            pageable = pageable,
+            todoTitle = todoTitle,
+            createdAt = createdAt,
+            managerName = managerName
         )
     }
 
