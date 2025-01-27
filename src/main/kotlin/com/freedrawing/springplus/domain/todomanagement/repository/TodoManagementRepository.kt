@@ -4,7 +4,4 @@ import com.freedrawing.springplus.domain.todo.entity.Todo
 import com.freedrawing.springplus.domain.todomanagement.entity.TodoManagement
 import org.springframework.data.jpa.repository.JpaRepository
 
-interface TodoManagementRepository : JpaRepository<TodoManagement, Long>, TodoManagementRepositoryCustom {
-    fun todo(todo: Todo): MutableList<TodoManagement>
-
-}
+interface TodoManagementRepository : JpaRepository<TodoManagement, Long>, TodoManagementRepositoryCustom
