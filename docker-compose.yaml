@@ -37,3 +37,7 @@ services:
     volumes:
       - redis-data:/data # Redis 데이터 지속성을 위한 볼륨
     command: redis-server --appendonly yes    # 데이터 지속성 활성화
+
+volumes:
+  redis-data:  # ✅ 볼륨을 정의
+    driver: local
