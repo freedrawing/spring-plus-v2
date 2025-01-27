@@ -46,8 +46,6 @@
 
 ## AWS Configuration
 
-## AWS Configuration
-
 ### EC2 콘솔
 ![EC2 개요](https://github.com/user-attachments/assets/d1ccbe02-75f1-4bd6-801b-01ef7c9bb041)
 
@@ -62,6 +60,22 @@
 
 ## API 문서
 https://documenter.getpostman.com/view/14200056/2sAYQggnpF
+
+## CI/CD
+현재 프로젝트는 깃허브 액션에서 제공하는 워크플로우 기능을 이용해서 CI/CD를 구현했다. 전체적인 워크플로우는 다음과 같다.
+1. 깃허브 레포지토리로 코드가 푸시되면, 우선 테스트가 실행된다.
+2. 테스트가 성공적으로 완료되면 배포 워크플로우가 실행된다.
+3. 깃허브 액션이 제공하는 컴퓨팅 자원을 활용해 프로젝트를 빌드한다.
+4. 빌드가 성공적으로 완료되면, 미리 작성한 도커 파일을 이용해, 스프링 애플리케이션과 프록시 서버 역할을 할 Nginx를 깃허브 액션이 제공하는 컴퓨팅 환경에서 관련 이미지를 생성한다.
+5. 생성된 두 개의 이미지(Spring-Application, Nginx)를 Amazon ECR을 이용해 EC2에 이미지 Push.
+6. PUSH한 이미지를 실행하는 명령어를 담은 `docker-compose.yaml` 파일 EC2에 전송
+7. 깃허브 시크릿 variable에 저장해놓은 EC2 접근 키를 이용해 EC2에 접근한 뒤, `docker-compose.yaml`을 실행하여 두 개의 컨테이너 실행.
+
+### 깃허브 액션을 이용한 CI/CD
+![github action ci/cd](https://github.com/user-attachments/assets/ded75834-f51d-431c-88d5-9beb54388eb3)
+
+### CI/CD 개략적인 워크 플로우
+![github action workflow](https://github.com/user-attachments/assets/39b43965-99cf-4748-9a3c-61e43d6159e6)
 
 ## 기타
 * [🐛 트러블 슈팅](/dev-notes/troubleshooting.md)
