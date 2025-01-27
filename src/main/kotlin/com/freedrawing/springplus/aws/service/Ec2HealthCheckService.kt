@@ -1,5 +1,6 @@
 package com.freedrawing.springplus.aws.service
 
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import software.amazon.awssdk.services.ec2.Ec2Client
 import software.amazon.awssdk.services.ec2.model.DescribeInstanceStatusRequest
@@ -7,9 +8,10 @@ import software.amazon.awssdk.services.ec2.model.DescribeInstancesRequest
 
 @Service
 class Ec2HealthCheckService(
-    private val ec2Client: Ec2Client
+    private val ec2Client: Ec2Client,
+    @Value("\${cloud.aws.ec2.instance.id}") private val instanceId: String
 ) {
-    fun checkInstanceHealth(instanceId: String): Map<String, Any> {
+    fun checkInstanceHealth(): Map<String, Any> {
         return try {
             val healthInfo = mutableMapOf<String, Any>()
             getInstanceStatus(instanceId, healthInfo)

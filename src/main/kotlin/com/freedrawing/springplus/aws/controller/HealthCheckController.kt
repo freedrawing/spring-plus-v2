@@ -10,8 +10,8 @@ class HealthCheckController(
     private val ec2HealthCheckService: Ec2HealthCheckService
 ) {
 
-    @GetMapping("/health/{instanceId}")
-    fun getInstanceHealth(@PathVariable instanceId: String): Map<String, Any> {
-        return ec2HealthCheckService.checkInstanceHealth(instanceId)
+    @GetMapping("/health/ec2")
+    fun getInstanceHealth(): Map<String, Any> {
+        return ec2HealthCheckService.checkInstanceHealth()
     }
 }

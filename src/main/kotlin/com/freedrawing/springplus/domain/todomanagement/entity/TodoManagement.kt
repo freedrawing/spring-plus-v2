@@ -15,8 +15,7 @@ class TodoManagement(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
-    var id: Long? = null
-        protected set
+    val id: Long = 0
 
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
     @ManyToOne(fetch = FetchType.LAZY)

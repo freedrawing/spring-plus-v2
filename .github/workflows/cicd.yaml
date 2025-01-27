@@ -170,6 +170,7 @@ jobs:
             AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
             AWS_REGION=${{ secrets.AWS_REGION }}
             AWS_S3_BUCKET=${{ secrets.AWS_S3_BUCKET }}
+            AWS_EC2_INSTANCE_ID=${{ secrets.AWS_EC2_INSTANCE_ID }}
             JWT_ISSUER=${{ secrets.JWT_ISSUER }}
             JWT_SECRET=${{ secrets.JWT_SECRET_KEY }}
             EOF

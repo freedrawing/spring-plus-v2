@@ -18,8 +18,7 @@ class TodoManagementHistory(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
-    var id: Long? = null
-        protected set
+    val id: Long = 0
 
     @ManyToOne(targetEntity = Todo::class, fetch = FetchType.LAZY)
     @JoinColumn(name = "todo_id", nullable = false)

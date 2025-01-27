@@ -19,8 +19,7 @@ class Todo(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
-    var id: Long? = null
-        protected set
+    val id: Long = 0
 
     @Column(name = "title", nullable = false, updatable = false)
     var title: String = title

@@ -71,7 +71,7 @@
 
 ### S3 콘솔
 
-![S3 개요](https://github.com/user-attachments/assets/186c3b7b-da36-4f48-8205-f0ea9b8bf324")
+![S3 개요](https://github.com/user-attachments/assets/186c3b7b-da36-4f48-8205-f0ea9b8bf324)
 
 ## API 문서
 
