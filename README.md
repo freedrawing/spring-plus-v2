@@ -17,6 +17,7 @@
 * `JWT`
 * `EC2`
 * `RDS`
+* `Redis`
 * `Docker`
 * `Nginx`
 * `Github Action`
@@ -51,9 +52,7 @@
 
 ## AWS Configuration
 
-### EC2 콘솔
-
-* EC2 Health Check API: `13.125.148.26/health/ec2`
+### EC2 콘솔 ([EC2 Health Check](13.125.148.26/health/ec2))
 
 ![EC2 개요](https://github.com/user-attachments/assets/d1ccbe02-75f1-4bd6-801b-01ef7c9bb041)
 
