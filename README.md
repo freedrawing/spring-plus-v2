@@ -98,5 +98,5 @@ https://documenter.getpostman.com/view/14200056/2sAYQggnpF
 
 ## 기타
 
-* [🐛 트러블 슈팅](/dev-notes/troubleshooting.md)
-* [💡프로젝트를 하면서 생각했던 점들](/dev-notes/thoughtslog.md)
+* [🚀 트러블 슈팅](/dev-notes/troubleshooting.md)
+* [🔹프로젝트를 하면서 생각했던 점들](/dev-notes/thoughtslog.md)
