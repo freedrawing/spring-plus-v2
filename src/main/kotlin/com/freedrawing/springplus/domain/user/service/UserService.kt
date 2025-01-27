@@ -32,6 +32,10 @@ class UserService(
         val rawPassword = requestDto.newPassword
         val encodedPassword = findUser.password
 
+        if (bCryptPasswordEncoder.matches(requestDto.currentPassword, findUser.password).not()) {
+            throw InvalidRequestException("기존 비밀번호가 일치하지 않습니다.")
+        }
+
         if (bCryptPasswordEncoder.matches(rawPassword, encodedPassword)) {
             throw InvalidRequestException("새 비밀번호와 기존 비밀번호는 같을 수 없습니다.")
         }
