@@ -34,14 +34,14 @@
 
 ### LV2 (필수 기능)
 
-* 2.6 JPA Cascaed ✅
+* 2.6 JPA CasCade ✅
 * 2.7 N+1 ✅
 * 2.8 QueryDSL ✅
 * 2.9 Spring Security ✅
 
 ### LV3 (도전 기능)
 
-* 3.10 QueryDSL을 사용하여 검색기능 만들기 ✅
+* 3.10 `QueryDSL`을 사용하여 검색기능 만들기 ✅
 * 3.11 Transaction 심화 - 로그 기능 만들기 ✅
 * 3.12 AWS 활용 마스터 ✅
   * 12-1 EC2 ✅
@@ -52,7 +52,7 @@
 
 ## AWS Configuration
 
-### EC2 콘솔 ([EC2 Health Check](13.125.148.26/health/ec2))
+### EC2 콘솔 ([EC2 Health Check](http://13.125.148.26/health/ec2))
 
 ![EC2 개요](https://github.com/user-attachments/assets/d1ccbe02-75f1-4bd6-801b-01ef7c9bb041)
 
