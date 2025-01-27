@@ -91,8 +91,8 @@ class TodoRepositoryImpl(private val queryFactory: JPAQueryFactory) : TodoReposi
                     todo.title,
                     todo.user.id,
                     todo.user.nickname,
-                    todoManagement.id.countDistinct().castToNum(Int::class.java),
-                    comment.id.countDistinct().castToNum(Int::class.java),
+                    todoManagement.id.countDistinct().intValue(),
+                    comment.id.countDistinct().intValue(),
                     todo.createdAt
                 )
             )

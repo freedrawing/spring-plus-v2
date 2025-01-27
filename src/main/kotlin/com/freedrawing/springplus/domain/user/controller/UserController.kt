@@ -6,10 +6,12 @@ import com.freedrawing.springplus.domain.user.dto.request.ChangeRoleRequestDto
 import com.freedrawing.springplus.domain.user.dto.response.UserResponseDto
 import com.freedrawing.springplus.domain.user.service.UserService
 import jakarta.validation.Valid
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
 
 @RestController
 class UserController(
@@ -20,6 +22,15 @@ class UserController(
     fun getUser(@PathVariable userId: Long): ResponseEntity<UserResponseDto> {
         val response = userService.getUserDetailsById(userId)
         return ResponseEntity.ok(response)
+    }
+
+    @PatchMapping("/users/profile-image")
+    fun changeProfileImage(
+        @AuthenticationPrincipal userPrincipal: UserPrincipal,
+        @RequestPart("image") profileImg: MultipartFile
+    ): ResponseEntity<UserResponseDto> {
+        val response = userService.changeProfileImage(userPrincipal.userId, profileImg)
+        return ResponseEntity(response, HttpStatus.OK)
     }
 
     @PatchMapping("/users")
