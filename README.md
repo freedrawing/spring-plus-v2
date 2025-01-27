@@ -53,7 +53,7 @@
 
 ### EC2 콘솔
 
-* EC2 Health Check API: `13.125.148.26/health/i-0a8b9efde240d9795`
+* EC2 Health Check API: `13.125.148.26/health/ec2`
 
 ![EC2 개요](https://github.com/user-attachments/assets/d1ccbe02-75f1-4bd6-801b-01ef7c9bb041)
 
