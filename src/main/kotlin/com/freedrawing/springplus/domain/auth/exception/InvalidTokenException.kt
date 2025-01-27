@@ -6,4 +6,6 @@ import com.freedrawing.springplus.domain.common.exception.InvalidRequestExceptio
 class InvalidTokenException : InvalidRequestException {
 
     constructor() : super(ErrorCode.INVALID_TOKEN)
+
+    constructor(message: String) :super(message)
 }

@@ -1,6 +1,7 @@
 package com.freedrawing.springplus.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.freedrawing.springplus.domain.auth.repository.RefreshTokenRepository
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
@@ -20,6 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 class WebSecurityConfig(
     private val tokenProvider: TokenProvider,
+    private val refreshTokenRepository: RefreshTokenRepository, // 바로 Repo를 참조하는 게 좋아보이지는 않는다.
     private val objectMapper: ObjectMapper
 ) {
 
@@ -28,8 +30,12 @@ class WebSecurityConfig(
     fun configure(): WebSecurityCustomizer {
         return WebSecurityCustomizer {
             it.ignoring().requestMatchers(
-//                *Url.WHITE_LIST.map { url -> AntPathRequestMatcher(url) }.toTypedArray()
-                "auth/**", "/health/**"
+                "/",
+                "/static/**",
+                "/index.html",
+                "/*.ico",
+                "/auth/**",
+                "/health/**",
             )
         }
     }
@@ -45,7 +51,7 @@ class WebSecurityConfig(
             .httpBasic { it.disable() } // HTTP Basic 비활성화 (Authorization 헤더에 사용자 이름과 비밀번호 Base64 인코딩하여 인증하는 방식)
             .requestCache { it.disable() } // 요청 캐시 비활성화 (인증되지 않은 사용자가 보호된 리소스에 접근하려고 할 때 해당 요청 정보 저장 후, 인증 성공 후에 원래 요청했던 리소스 리다이렉팅 하기 위해 사용
             .logout { it.disable() }
-            .addFilterBefore(JwtAuthenticationFilter(tokenProvider), UsernamePasswordAuthenticationFilter::class.java)
+            .addFilterBefore(JwtAuthenticationFilter(tokenProvider, refreshTokenRepository), UsernamePasswordAuthenticationFilter::class.java)
             .addFilterBefore(FrontExceptionHandlerFilter(objectMapper), JwtAuthenticationFilter::class.java)
             .authorizeHttpRequests {
                 it.requestMatchers(

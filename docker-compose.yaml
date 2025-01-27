@@ -16,6 +16,10 @@ services:
       - AWS_EC2_INSTANCE_ID=${AWS_EC2_INSTANCE_ID}
       - JWT_ISSUER=${JWT_ISSUER}
       - JWT_SECRET=${JWT_SECRET}
+      - REDIS_HOST=redis # ✅ Redis 호스트 추가
+      - REDIS_PORT=6379 # ✅ Redis 포트 추가
+    depends_on:
+      - redis # ✅ Redis 컨테이너가 먼저 실행되도록 설정
 
   nginx:
     image: ${ECR_REGISTRY}/nginx:latest  # build 대신 ECR 이미지 사용
@@ -24,3 +28,12 @@ services:
       - "80:80"
     depends_on:
       - app
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: redis
+    ports:
+      - "6379:6379" # Redis 포트 노출 (외부 필요한 경우)
+    volumes:
+      - redis-data:/data # Redis 데이터 지속성을 위한 볼륨
+    command: redis-server --appendonly yes    # 데이터 지속성 활성화

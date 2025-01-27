@@ -68,6 +68,12 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
+    // Faker
+    testImplementation ("com.github.javafaker:javafaker:1.0.2") {
+        exclude(group = "org.yaml", module = "snakeyaml")
+    }
+    testImplementation ("org.yaml:snakeyaml:2.0")
+
     // JWT
     implementation("io.jsonwebtoken:jjwt:0.9.1") // Java JWT library
     implementation("javax.xml.bind:jaxb-api:2.3.1") // XML document와 Java 객체 간 매핑 자동화
@@ -80,6 +86,9 @@ dependencies {
     implementation("io.awspring.cloud:spring-cloud-aws-starter")
     implementation("software.amazon.awssdk:ec2") // AWS SDK v2 EC2 클라이언트
     implementation("software.amazon.awssdk:s3") //  AWS SDK v2 S3 클라이언트
+
+    // redis
+    implementation ("org.springframework.boot:spring-boot-starter-data-redis")
 }
 
 // JSR-305 애노테이션을 엄격하게 처리. `Nullable` 및 `NonNull`을 더 안전하게 다룸.

@@ -81,11 +81,15 @@ class TokenProvider(private val jwtProperties: JwtProperties) {
         )
     }
 
-    fun isRefreshToken(token: String): Boolean {
+    fun validateRefreshToken(token: String) {
+        validateToken(token)
+
         val claims = getClaims(token)
         val tokenType = claims.get("tokenType", String::class.java)
 
-        return tokenType == REFRESH_TOKEN_TYPE
+        if (tokenType != REFRESH_TOKEN_TYPE) {
+            throw InvalidTokenException("Refresh Token이 아닙니다.")
+        }
     }
 
     fun getUserIdFrom(token: String): Long {
