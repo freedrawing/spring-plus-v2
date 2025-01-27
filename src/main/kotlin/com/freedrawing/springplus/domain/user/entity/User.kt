@@ -16,8 +16,7 @@ class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
-    var id: Long? = null
-        protected set
+    val id: Long = 0
 
     @Column(name = "email", updatable = false, nullable = false, unique = true)
     var email: String = email
@@ -45,5 +44,9 @@ class User(
 
     fun changeRole(newRole: Role) {
         this.role = newRole
+    }
+
+    fun changeProfileImgUrl(profileImgUrl: String) {
+        this.profileImgUrl = profileImgUrl
     }
 }

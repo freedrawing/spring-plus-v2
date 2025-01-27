@@ -1,5 +1,6 @@
 package com.freedrawing.springplus.domain.user.service
 
+import com.freedrawing.springplus.aws.service.AWSS3FileService
 import com.freedrawing.springplus.config.error.ErrorCode
 import com.freedrawing.springplus.domain.common.exception.AccessDeniedException
 import com.freedrawing.springplus.domain.common.exception.InvalidRequestException
@@ -13,12 +14,14 @@ import com.freedrawing.springplus.domain.user.repository.UserRepository
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import org.springframework.web.multipart.MultipartFile
 
 @Transactional(readOnly = true)
 @Service
 class UserService(
     private val userRepository: UserRepository,
-    private val bCryptPasswordEncoder: BCryptPasswordEncoder
+    private val bCryptPasswordEncoder: BCryptPasswordEncoder,
+    private val awsS3Service: AWSS3FileService
 ) {
 
     fun getUserDetailsById(userId: Long): UserResponseDto {
@@ -41,6 +44,17 @@ class UserService(
         }
 
         findUser.changePassword(bCryptPasswordEncoder.encode(requestDto.newPassword))
+    }
+
+    @Transactional
+    fun changeProfileImage(userId: Long, file: MultipartFile): UserResponseDto {
+        val savedProfileImgUrl = awsS3Service.uploadImage(file)
+
+        val findUser = getUserById(userId)
+        findUser.profileImgUrl?.let { awsS3Service.deleteImage(it) }
+        findUser.changeProfileImgUrl(savedProfileImgUrl)
+
+        return UserResponseDto.fromEntity(findUser)
     }
 
     /*
