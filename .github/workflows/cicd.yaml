@@ -39,9 +39,10 @@ jobs:
           SPRING_PROFILES_ACTIVE: test
         run: ./gradlew test --parallel --info
 
-  # 배포 Job
+  # 배포 Job (main 브랜치 push일 때만 실행)
   deploy:
     needs: test    # test job이 성공해야 실행
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       # 소스 코드 체크아웃 (ubuntu 서버로 깃허브에 저장된 코드를 복사하는 작업 정도로 이해)

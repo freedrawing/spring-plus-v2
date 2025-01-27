@@ -29,7 +29,7 @@ class WebSecurityConfig(
         return WebSecurityCustomizer {
             it.ignoring().requestMatchers(
 //                *Url.WHITE_LIST.map { url -> AntPathRequestMatcher(url) }.toTypedArray()
-                "auth/**"
+                "auth/**", "/health/**"
             )
         }
     }
