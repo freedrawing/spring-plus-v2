@@ -46,18 +46,22 @@
 
 ## AWS Configuration
 
+## AWS Configuration
+
 ### EC2 콘솔
 ![EC2 개요](https://github.com/user-attachments/assets/d1ccbe02-75f1-4bd6-801b-01ef7c9bb041)
+
+### EC2 보안그룹
 ![EC2 보안그룹](https://github.com/user-attachments/assets/6b810661-e17f-49c5-9068-0dbac34ce2aa)
 
 ### RDS 콘솔
 ![RDS 개요](https://github.com/user-attachments/assets/939377b7-4752-42f9-9077-1a5952a15832)
+
+### RDS 보안그룹
 ![RDS 보안그룹](https://github.com/user-attachments/assets/3190d4f5-f7c8-4a31-8c4d-e360c298d9fc)
 
 ## API 문서
 https://documenter.getpostman.com/view/14200056/2sAYQggnpF
-
-## CI/CD
 
 ## 기타
 * [🐛 트러블 슈팅](/dev-notes/troubleshooting.md)
