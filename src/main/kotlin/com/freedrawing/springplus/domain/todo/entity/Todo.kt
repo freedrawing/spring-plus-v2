@@ -13,7 +13,7 @@ class Todo(
     title: String,
     content: String,
     weather: String,
-    user: User
+    user: User,
 ) : Timestamped() {
 
     @Id
